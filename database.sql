@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 26, 2021 at 07:33 PM
+-- Generation Time: Apr 26, 2021 at 07:46 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -28,18 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `answers` (
   `answer_id` int(11) NOT NULL,
-  `question_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `answer` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `answers`
---
-
-INSERT INTO `answers` (`answer_id`, `question_id`, `subject_id`, `answer`) VALUES
-(1, 12, 12, 'ad'),
-(12, 12, 12, 'asd');
 
 -- --------------------------------------------------------
 
@@ -50,6 +41,7 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `subject_id`, `answer`) VALUE
 CREATE TABLE `questions` (
   `question_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
+  `answer_id` int(11) NOT NULL,
   `question` varchar(250) NOT NULL,
   `question_level` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
