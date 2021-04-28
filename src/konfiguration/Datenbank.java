@@ -9,7 +9,7 @@ public class Datenbank {
     /**
      * Datenbankverbindung
      */
-    public static void verbinden() {
+    public static Connection verbinden() {
         Connection conn = null;
         try {
             // Datenbankparameter
@@ -23,15 +23,8 @@ public class Datenbank {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
+        return conn;
     }
 
 }
