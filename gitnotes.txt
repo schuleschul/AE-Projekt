@@ -1,0 +1,29 @@
+Grundlegende Kommandos fürs Arbeiten mit Git
+
+alle Kommandos sind in einem git-Repository auszuführen (hier bei uns der Ordner AE-Projekt und alles darunter)
+
+git status
+- gibt den Status des Repositorys aus
+- hier sieht man, welche Dateien verändert wurden und welche eventuell neu erstellt wurden, aber noch nicht ins Repository hinzugefügt wurden (untracked files)
+- außerdem sieht man hier den Branch, auf dem man sich befindet (vorerst master)
+
+git add <Datei>
+- fügt Dateien in den "Stage-Bereich" hinzu --> Nur Dateien im Stage-Bereich werden beim Ausführen von git commit dem Repository hinzugefügt
+- über git status werden in der Stage befindliche Dateien in grün angezeigt (Changes to be committed)
+
+git commit
+- Die im Stage-Bereich befindlichen Dateien werden committed, das heißt, der aktuelle Zustand dieser Dateien wird dauerhaft im Repository gespeichert und es kann jederzeit auf diesen Stand zurückgegriffen werden (Versionskontrolle)
+- beim Commit muss eine Commit-Message mitgegeben werden, die im besten Fall beschreibt, was in diesem Commit passiert ist und - falls nicht sofort ersichtlich - auch warum
+	- für die Commit-Message wird ein Texteditor geöffnet. Ich glaube unter Windows in der Git-Bash ist das standardmäßig vi, der für Unwissende sehr schwer zu bedienen sein kann
+	- wird git commit die Option -m mitgegeben, kann die Message direkt in der Kommandozeile eingegeben werden und das Problem mit dem uU unbedienbaren vi ist umgangen
+		--> das heißt statt einfach "git commit" auszuführen --> 	git commit -m "Message"
+			--> die Anführungszeichen um die Message müssen sein
+
+git push
+- lädt die lokalen Commits in das remote-Repository hoch (GitHub)
+- falls hier Fehler auftreten, liegt es höchstwahrscheinlich daran, dass bereits jemand vor euch gepusht hat. In dem Fall akzeptiert GitHub den Push nicht (aus Gründen, die hier zu weit führen)
+	- in der Regel kann dieses Problem gelöst werden, indem vor 	git push		git pull --rebase		ausgeführt wird
+
+git pull
+- lädt den aktuellen Stand des remote-Repositorys herunter
+- am besten so häufig wie möglich ausführen, um oben genanntes Problem bei git push zu vermeiden
