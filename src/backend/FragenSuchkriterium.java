@@ -15,9 +15,9 @@ public class FragenSuchkriterium
     public Frage.Schwierigkeit getSchwierigkeit() { return schwierigkeit; }
     public void setSchwierigkeit(Frage.Schwierigkeit schwierigkeit) { this.schwierigkeit = schwierigkeit; }
     public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public void setId(int id) { this.id = id; }
     public Integer getAnzahlRichtigBeantwortet() { return anzahlRichtigBeantwortet; }
-    public void setAnzahlRichtigBeantwortet(Integer anzahlRichtigBeantwortet) { this.anzahlRichtigBeantwortet = anzahlRichtigBeantwortet; }
+    public void setAnzahlRichtigBeantwortet(int anzahlRichtigBeantwortet) { this.anzahlRichtigBeantwortet = anzahlRichtigBeantwortet; }
 
 
     private String frage = null;
