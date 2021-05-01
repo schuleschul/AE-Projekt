@@ -8,8 +8,6 @@ public class Fach
         this.anzahlFragen = anzahlFragen;
     }
 
-    
-
     public String getBezeichnung()
     {
         return bezeichnung;
