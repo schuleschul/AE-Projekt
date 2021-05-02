@@ -18,7 +18,7 @@ public class FachFactory
     public ArrayList<Fach> laden()
     {
         FachSuchkriterium suchkriterium = new FachSuchkriterium();
-        return datenbank.laden(suchkriterium);
+        return laden(suchkriterium);
     }
 
 
