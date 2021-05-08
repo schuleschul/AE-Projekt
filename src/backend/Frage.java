@@ -36,6 +36,7 @@ public class Frage
         this.schwierigkeit = schwierigkeit;
         this.id = id;
         this.anzahlRichtigBeantwortet = anzahlRichtigBeantwortet;
+
     }
 
     public ArrayList<String> getAlleAntworten()
@@ -60,6 +61,8 @@ public class Frage
     private final String fach;
     private final Schwierigkeit schwierigkeit;
     private final int id;
+    //selbst wenn dieselbe Schwierigkeit nochmal gespielt wird, sollten die Fragen neu aus der Datenbank geladen werden, damit
+    //nicht die exakt selben Fragen noch einmal auftreten. Daher muss auch anzahlRichtigBeantwortet nicht in der Frage selbst verändert werden
     private final int anzahlRichtigBeantwortet;
 
 }

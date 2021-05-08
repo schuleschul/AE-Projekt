@@ -48,4 +48,9 @@ public class DatenbankInterface
     {
 
     }
+
+    public void update(int id, int anzahlRichtigBeantwortet)
+    {
+
+    }
 }
