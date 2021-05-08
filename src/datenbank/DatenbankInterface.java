@@ -26,7 +26,7 @@ public class DatenbankInterface
             while (resultSet.next()) {
                 int fachId = resultSet.getInt("subject_id");
                 String bezeichnung = resultSet.getString("subject_name");
-                faecher.add(new Fach(fachId, bezeichnung, 0));
+                faecher.add(new Fach(fachId, bezeichnung));
             }
         } catch (SQLException e){
             e.printStackTrace();

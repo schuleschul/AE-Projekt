@@ -3,10 +3,9 @@ package backend;
 public class Fach
 {
     //Konstruktor fürs Laden aus der DB
-    public Fach( int fachId, String bezeichnung, int anzahlFragen)
+    public Fach( int fachId, String bezeichnung)
     {
         this.bezeichnung = bezeichnung;
-        this.anzahlFragen = anzahlFragen;
         this.fachId = fachId;
     }
 
@@ -14,8 +13,7 @@ public class Fach
     public Fach(String bezeichnung)
     {
         this.bezeichnung = bezeichnung;
-        //werden von der Datenbank bestimmt
-        this.anzahlFragen = 0;
+        //wird von der Datenbank bestimmt
         this.fachId = 0;
     }
 
@@ -24,16 +22,10 @@ public class Fach
         return bezeichnung;
     }
 
-    public int getAnzahlFragen()
-    {
-        return anzahlFragen;
-    }
-
     public int getFachId() {
         return fachId;
     }
 
     private final int fachId;
     private final String bezeichnung;
-    private final int anzahlFragen;
 }
