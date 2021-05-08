@@ -39,6 +39,18 @@ public class Frage
 
     }
 
+    //Konstruktor für Fragen, die neu in der Datenbank gespeichert werden sollen
+    public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, String fach, Schwierigkeit schwierigkeit)
+    {
+        this.frage = frage;
+        this.richtigeAntwort = richtigeAntwort;
+        this.falscheAntworten = falscheAntworten;
+        this.fach = fach;
+        this.schwierigkeit = schwierigkeit;
+        this.id = 0;        //die ID wird in der Datenbank durch autoincrement bestimmt
+        this.anzahlRichtigBeantwortet = 0;
+    }
+
     public ArrayList<String> getAlleAntworten()
     {
         ArrayList<String> alleAntworten = falscheAntworten;
