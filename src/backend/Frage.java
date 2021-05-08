@@ -26,6 +26,7 @@ public class Frage
 //        }
 //    }
 
+    //Konstruktor fürs Laden aus der DB
     public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, String fach, Schwierigkeit schwierigkeit,
                   int id, int anzahlRichtigBeantwortet)
     {

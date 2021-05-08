@@ -21,6 +21,10 @@ public class FachFactory
         return datenbank.laden(suchkriterium);
     }
 
+    public void speichern(String bezeichnung)
+    {
+        datenbank.speichern(new Fach(bezeichnung));
+    }
 
     private final DatenbankInterface datenbank;
 }
