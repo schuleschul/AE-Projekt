@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatenbankInterface
 {
@@ -21,7 +20,7 @@ public class DatenbankInterface
         Connection conn = db.verbinden();
         ArrayList<Fach> faecher = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subject");
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subject"); // ich werde noch suchkriterium anpassen
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int fachId = resultSet.getInt("subject_id");
@@ -36,7 +35,24 @@ public class DatenbankInterface
 
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
-
+        Datenbank db = new Datenbank();
+        Connection conn = db.verbinden();
+        ArrayList<Frage> fragen = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM questions"); // ich werde noch suchkriterium anpassen
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int frageId = resultSet.getInt("question_id");
+                String frage = resultSet.getString("question");
+                int antwortId = resultSet.getInt("answer_id");
+                int fachId = resultSet.getInt("subject_id");
+                int frageNiveau = resultSet.getInt("question_level");
+                fragen.add(new Frage(frageId, frage, fachId, antwortId, frageNiveau));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return fragen;
     }
 
     public void speichern(Frage frage)
