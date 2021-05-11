@@ -7,9 +7,17 @@ public class Frage
 {
     public static enum Schwierigkeit
     {
-        leicht,
-        mittel,
-        schwer
+        Leicht(1),
+        Mittel(2),
+        Schwer(3);
+        private int value;
+        Schwierigkeit(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
 //    public static void main(String[] args)

@@ -16,10 +16,10 @@ public class DatenbankInterface
 {
     public ArrayList<Fach> laden(FachSuchkriterium suchkriterium)
     {
-        Datenbank db = new Datenbank();
-        Connection conn = db.verbinden();
+        Connection conn = null;
         ArrayList<Fach> faecher = new ArrayList<>();
         try {
+            conn = Datenbank.verbinden();
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subject"); // ich werde noch suchkriterium anpassen
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -29,14 +29,21 @@ public class DatenbankInterface
             }
         } catch (SQLException e){
             e.printStackTrace();
+        } finally {
+            if (conn != null ) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return faecher;
     }
 
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
-        Datenbank db = new Datenbank();
-        Connection conn = db.verbinden();
+        Connection conn = Datenbank.verbinden();
         ArrayList<Frage> fragen = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM questions"); // ich werde noch suchkriterium anpassen
@@ -57,12 +64,51 @@ public class DatenbankInterface
 
     public void speichern(Frage frage)
     {
+        Connection conn = null;
 
+        try {
+            conn = Datenbank.verbinden();
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT questions INTO subject VALUES (?,?,?,?)");
+            preparedStatement.setString(1, frage.getFach());
+            preparedStatement.setString(2, frage.getRichtigeAntwort());
+            preparedStatement.setString(3, frage.getFrage());
+            preparedStatement.setInt(4, frage.getSchwierigkeit().getValue());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            if (conn != null ) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void speichern(Fach fach)
     {
+        Connection conn = null;
 
+        try {
+            conn = Datenbank.verbinden();
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT subjcet_name INTO subject VALUES (?)");
+            preparedStatement.setNString(1, fach.getBezeichnung());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            if (conn != null ) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void update(int id, int anzahlRichtigBeantwortet)
