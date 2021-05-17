@@ -13,12 +13,12 @@ public class Gamemaster
     {
         if(wurdeRichtigBeantwortet)
         {
-            datenbankInterface.update(frage.getId(), (frage.getAnzahlRichtigBeantwortet()+1));
+            datenbankInterface.update(frage.getFrageId(), (frage.getAnzahlRichtigBeantwortet()+1));
         }
         else
         {
             //Fragen mit einer geringeren AnzahlRichtigBeantwortet sollten beim Laden aus der Datenbank
-            datenbankInterface.update(frage.getId(), (frage.getAnzahlRichtigBeantwortet()-1));
+            datenbankInterface.update(frage.getFrageId(), (frage.getAnzahlRichtigBeantwortet()-1));
         }
     }
 

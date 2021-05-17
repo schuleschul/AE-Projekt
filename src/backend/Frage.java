@@ -1,12 +1,8 @@
 package backend;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Frage
 {
-    public static enum Schwierigkeit
-    {
+    public static enum Schwierigkeit {
         Leicht(1),
         Mittel(2),
         Schwer(3);
@@ -17,6 +13,15 @@ public class Frage
 
         public int getValue() {
             return value;
+        }
+
+        public static Schwierigkeit getLevelByValue(int value){
+            for(Schwierigkeit schwierigkeit: Schwierigkeit.values()){
+                if(schwierigkeit.getValue() == value){
+                    return schwierigkeit;
+                }
+            }
+            return null;
         }
     }
 
@@ -35,55 +40,121 @@ public class Frage
 //    }
 
     //Konstruktor fürs Laden aus der DB
-    public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, String fach, Schwierigkeit schwierigkeit,
-                  int id, int anzahlRichtigBeantwortet)
-    {
-        this.frage = frage;
-        this.richtigeAntwort = richtigeAntwort;
-        this.falscheAntworten = falscheAntworten;
-        this.fach = fach;
-        this.schwierigkeit = schwierigkeit;
-        this.id = id;
-        this.anzahlRichtigBeantwortet = anzahlRichtigBeantwortet;
 
+
+    public Frage(int frageId, int fachId, String frage, Schwierigkeit schwierigkeit, String antwort1, String antwort2,
+                 String antwort3, String antwort4, int anzahlRichtigBeantwortet) {
+        this.frageId = frageId;
+        this.fachId = fachId;
+        this.frage = frage;
+        this.schwierigkeit = schwierigkeit;
+        this.antwort1 = antwort1;
+        this.antwort2 = antwort2;
+        this.antwort3 = antwort3;
+        this.antwort4 = antwort4;
+        this.anzahlRichtigBeantwortet = anzahlRichtigBeantwortet;
     }
 
     //Konstruktor für Fragen, die neu in der Datenbank gespeichert werden sollen
-    public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, String fach, Schwierigkeit schwierigkeit)
+    public Frage(int fachId, String frage, Schwierigkeit schwierigkeit, String antwort1, String antwort2,
+                 String antwort3, String antwort4)
     {
+        this.fachId = fachId;
         this.frage = frage;
-        this.richtigeAntwort = richtigeAntwort;
-        this.falscheAntworten = falscheAntworten;
-        this.fach = fach;
         this.schwierigkeit = schwierigkeit;
-        this.id = 0;        //die ID wird in der Datenbank durch autoincrement bestimmt
+        this.antwort1 = antwort1;
+        this.antwort2 = antwort2;
+        this.antwort3 = antwort3;
+        this.antwort4 = antwort4;
         this.anzahlRichtigBeantwortet = 0;
     }
 
-    public ArrayList<String> getAlleAntworten()
-    {
-        ArrayList<String> alleAntworten = falscheAntworten;
-        alleAntworten.add(richtigeAntwort);
-        Collections.shuffle(alleAntworten);
-        return alleAntworten;
-    }
-
     public String getFrage() { return frage; }
-    public String getRichtigeAntwort() { return richtigeAntwort;}
-    public ArrayList<String> getFalscheAntworten() { return falscheAntworten; }
-    public String getFach() { return fach; }
     public Schwierigkeit getSchwierigkeit() { return schwierigkeit; }
-    public int getId() { return id; }
+    public int getFrageId() { return frageId; }
     public int getAnzahlRichtigBeantwortet() {return anzahlRichtigBeantwortet; }
 
-    private final String frage;
-    private final String richtigeAntwort;
-    private final ArrayList<String> falscheAntworten;
-    private final String fach;
-    private final Schwierigkeit schwierigkeit;
-    private final int id;
+    public String getAntwort1() {
+        return antwort1;
+    }
+
+    public String getAntwort2() {
+        return antwort2;
+    }
+
+    public String getAntwort3() {
+        return antwort3;
+    }
+
+    public String getAntwort4() {
+        return antwort4;
+    }
+
+    public int getFachId() {
+        return fachId;
+    }
+
+    public void setFrage(String frage) {
+        this.frage = frage;
+    }
+
+    public void setAntwort1(String antwort1) {
+        this.antwort1 = antwort1;
+    }
+
+    public void setAntwort2(String antwort2) {
+        this.antwort2 = antwort2;
+    }
+
+    public void setAntwort3(String antwort3) {
+        this.antwort3 = antwort3;
+    }
+
+    public void setAntwort4(String antwort4) {
+        this.antwort4 = antwort4;
+    }
+
+    public void setFachId(int fachId) {
+        this.fachId = fachId;
+    }
+
+    public void setSchwierigkeit(Schwierigkeit schwierigkeit) {
+        this.schwierigkeit = schwierigkeit;
+    }
+
+    public void setFrageId(int frageId) {
+        this.frageId = frageId;
+    }
+
+    public void setAnzahlRichtigBeantwortet(int anzahlRichtigBeantwortet) {
+        this.anzahlRichtigBeantwortet = anzahlRichtigBeantwortet;
+    }
+
+    private String frage;
+    private String antwort1;
+    private String antwort2;
+    private String antwort3;
+    private String antwort4;
+    private int fachId;
+    private Schwierigkeit schwierigkeit;
+    private int frageId;
     //selbst wenn dieselbe Schwierigkeit nochmal gespielt wird, sollten die Fragen neu aus der Datenbank geladen werden, damit
     //nicht die exakt selben Fragen noch einmal auftreten. Daher muss auch anzahlRichtigBeantwortet nicht in der Frage selbst verändert werden
-    private final int anzahlRichtigBeantwortet;
+    private int anzahlRichtigBeantwortet;
 
+
+    @Override
+    public String toString() {
+        return "Frage{" +
+                "frage='" + frage + '\'' +
+                ", antwort1='" + antwort1 + '\'' +
+                ", antwort2='" + antwort2 + '\'' +
+                ", antwort3='" + antwort3 + '\'' +
+                ", antwort4='" + antwort4 + '\'' +
+                ", fachId=" + fachId +
+                ", schwierigkeit=" + schwierigkeit +
+                ", frageId=" + frageId +
+                ", anzahlRichtigBeantwortet=" + anzahlRichtigBeantwortet +
+                '}';
+    }
 }

@@ -28,4 +28,12 @@ public class Fach
 
     private final int fachId;
     private final String bezeichnung;
+
+    @Override
+    public String toString() {
+        return "Fach{" +
+                "fachId=" + fachId +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                '}';
+    }
 }
