@@ -19,7 +19,7 @@ public class Datenbank {
             // Datenbankverbindung herstellen
             conn = DriverManager.getConnection(url);
 
-            System.out.println("Die Verbindung zu SQLite wurde erfolgreich hergestellt.");
+//            System.out.println("Die Verbindung zu SQLite wurde erfolgreich hergestellt.");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
