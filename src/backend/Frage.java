@@ -34,8 +34,13 @@ public class Frage
     public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, Schwierigkeit schwierigkeit, int fachId,
                   int id, int anzahlRichtigBeantwortet)
     {
+        if(falscheAntworten.size() > maxAnzahlFalscheAntworten)
+        {
+            throw new IllegalArgumentException();
+        }
         this.frage = frage;
         this.richtigeAntwort = richtigeAntwort;
+
         this.falscheAntworten = falscheAntworten;
         this.fachId = fachId;
         this.schwierigkeit = schwierigkeit;
@@ -47,6 +52,10 @@ public class Frage
     //Konstruktor für Fragen, die neu in der Datenbank gespeichert werden sollen
     public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, Schwierigkeit schwierigkeit, int fachId)
     {
+        if(falscheAntworten.size() > maxAnzahlFalscheAntworten)
+        {
+            throw new IllegalArgumentException();
+        }
         this.frage = frage;
         this.richtigeAntwort = richtigeAntwort;
         this.falscheAntworten = falscheAntworten;
@@ -58,7 +67,7 @@ public class Frage
 
     public ArrayList<String> getAlleAntworten()
     {
-        ArrayList<String> alleAntworten = falscheAntworten;
+        ArrayList<String> alleAntworten = new ArrayList<String>(falscheAntworten);
         alleAntworten.add(richtigeAntwort);
         Collections.shuffle(alleAntworten);
         return alleAntworten;
@@ -81,5 +90,7 @@ public class Frage
     //selbst wenn dieselbe Schwierigkeit nochmal gespielt wird, sollten die Fragen neu aus der Datenbank geladen werden, damit
     //nicht die exakt selben Fragen noch einmal auftreten. Daher muss auch anzahlRichtigBeantwortet nicht in der Frage selbst verändert werden
     private final int anzahlRichtigBeantwortet;
+
+    private final int maxAnzahlFalscheAntworten = 3;
 
 }
