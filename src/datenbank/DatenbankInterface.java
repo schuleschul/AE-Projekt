@@ -50,18 +50,24 @@ public class DatenbankInterface
             conn = Datenbank.verbinden();
             preparedStatement = conn.prepareStatement("SELECT * FROM questions"); // ich werde noch suchkriterium anpassen
             ResultSet resultSet = preparedStatement.executeQuery();
+            //es wird bei jedem Aufruf eine Kopie des Arrays erstellt, weshalb es wesentlich effizienter ist, dieses Array einmalig zu cachen, statt in der folgenden Schleife jedes Mal neu zu initialisieren
+            Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
             while (resultSet.next()) {
                 int frageId = resultSet.getInt("question_id");
                 int fachId = resultSet.getInt("subject_id");
                 String frage = resultSet.getString("question");
-                Frage.Schwierigkeit schwierigkeit = Frage.Schwierigkeit.getLevelByValue(resultSet.getInt("question_level"));
+                Frage.Schwierigkeit schwierigkeit = schwierigkeiten[(resultSet.getInt("question_level"))];
                 String antwort1 = resultSet.getString("answer1");
                 String antwort2 = resultSet.getString("answer2");
                 String antwort3 = resultSet.getString("answer3");
                 String antwort4 = resultSet.getString("answer4");
                 int anzahlRichtigBeantwortet = resultSet.getInt("correct_answered");
+                ArrayList falscheAntworten = new ArrayList();
+                falscheAntworten.add(antwort2);
+                falscheAntworten.add(antwort3);
+                falscheAntworten.add(antwort4);
 
-                fragen.add(new Frage(frageId, fachId, frage, schwierigkeit, antwort1, antwort2,antwort3,antwort4, anzahlRichtigBeantwortet));
+                fragen.add(new Frage(frage, antwort1, falscheAntworten, schwierigkeit, frageId, fachId, anzahlRichtigBeantwortet));
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -80,11 +86,12 @@ public class DatenbankInterface
                     "answer1, answer2, answer3, answer4) VALUES (?,?,?,?,?,?,?)");
             preparedStatement.setInt(1, frage.getFachId());
             preparedStatement.setString(2, frage.getFrage());
-            preparedStatement.setInt(3, frage.getSchwierigkeit().getValue());
-            preparedStatement.setString(4, frage.getAntwort1());
-            preparedStatement.setString(5, frage.getAntwort2());
-            preparedStatement.setString(6, frage.getAntwort3());
-            preparedStatement.setString(7, frage.getAntwort4());
+            preparedStatement.setInt(3, frage.getSchwierigkeit().ordinal());
+            preparedStatement.setString(4, frage.getRichtigeAntwort());
+            for(String falscheAntwort : frage.getFalscheAntworten())
+            {
+                preparedStatement.setString(5, falscheAntwort);
+            }
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e){

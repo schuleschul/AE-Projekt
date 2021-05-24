@@ -25,10 +25,10 @@ public class FragenFactory
         return alleFragen;
     }
 
-//    public void speichern(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, String fach, Frage.Schwierigkeit leicht)
-//    {
-//        datenbank.speichern(new Frage(frage, richtigeAntwort, falscheAntworten, fach, leicht));
-//    }
+    public void speichern(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, int fachId, Frage.Schwierigkeit leicht)
+    {
+        datenbank.speichern(new Frage(frage, richtigeAntwort, falscheAntworten, leicht, fachId));
+    }
 
     private final DatenbankInterface datenbank;
 }

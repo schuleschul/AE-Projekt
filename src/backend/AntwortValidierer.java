@@ -6,7 +6,6 @@ public class AntwortValidierer
 
     public boolean istRichtig(Frage frage, String gegebeneAntwort)
     {
-//        return frage.getRichtigeAntwort().equals(gegebeneAntwort);
-        return false;
+        return frage.getRichtigeAntwort().equals(gegebeneAntwort);
     }
 }
