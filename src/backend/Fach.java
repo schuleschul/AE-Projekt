@@ -22,7 +22,7 @@ public class Fach
         return bezeichnung;
     }
 
-    public int getFachId() {
+    public int getId() {
         return fachId;
     }
 
