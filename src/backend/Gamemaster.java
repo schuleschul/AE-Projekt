@@ -13,6 +13,7 @@ public class Gamemaster
     {
         if(wurdeRichtigBeantwortet)
         {
+            ++score;
             datenbankInterface.update(frage.getId(), (frage.getAnzahlRichtigBeantwortet()+1));
         }
         else
@@ -22,5 +23,17 @@ public class Gamemaster
         }
     }
 
+    public int getAnzahlFragenProRunde()
+    {
+        return anzahlFragenProRunde;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
+
     private final DatenbankInterface datenbankInterface;
+    private final int anzahlFragenProRunde = 10;
+    private int score = 0;
 }
