@@ -70,6 +70,10 @@ public class Frage
     public Schwierigkeit getSchwierigkeit() { return schwierigkeit; }
     public int getId() { return id; }
     public int getAnzahlRichtigBeantwortet() {return anzahlRichtigBeantwortet; }
+    public static int getAnzahlFalscheAntworten()
+    {
+        return anzahlFalscheAntworten;
+    }
 
     private final String frage;
     private final String richtigeAntwort;
@@ -82,6 +86,6 @@ public class Frage
     private final int anzahlRichtigBeantwortet;
 
     private ArrayList<String> alleAntworten;
-    private final int anzahlFalscheAntworten = 3;
+    private static final int anzahlFalscheAntworten = 3;
 
 }
