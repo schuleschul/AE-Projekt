@@ -34,7 +34,7 @@ public class Frage
     public Frage(String frage, String richtigeAntwort, ArrayList<String> falscheAntworten, Schwierigkeit schwierigkeit, int fachId,
                   int id, int anzahlRichtigBeantwortet)
     {
-        if(falscheAntworten.size() > maxAnzahlFalscheAntworten)
+        if(falscheAntworten.size() != anzahlFalscheAntworten)
         {
             throw new IllegalArgumentException();
         }
@@ -82,6 +82,6 @@ public class Frage
     private final int anzahlRichtigBeantwortet;
 
     private ArrayList<String> alleAntworten;
-    private final int maxAnzahlFalscheAntworten = 3;
+    private final int anzahlFalscheAntworten = 3;
 
 }
