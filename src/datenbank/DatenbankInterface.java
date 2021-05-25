@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class DatenbankInterface
 {
+    // Fächer aus der Datenbank laden
     public ArrayList<Fach> laden(FachSuchkriterium suchkriterium)
     {
         Connection conn = null;
@@ -40,7 +41,8 @@ public class DatenbankInterface
         }
         return faecher;
     }
-
+    
+    // Fragen aus der Datenbank laden
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
         Connection conn = null;
@@ -76,7 +78,24 @@ public class DatenbankInterface
         }
         return fragen;
     }
+    
+    // Bilder aus der Datenbank laden (nicht fertig!)
+    public void bilderLaden() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = Datenbank.verbinden();
+            preparedStatement = conn.prepareStatement("SELECT * FROM images"); // Where wird noch angepasst
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn, preparedStatement);
+        }
+    }
+    
+    // Fragen in die Datenbank eintragen
     public void speichern(Frage frage) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
@@ -100,7 +119,8 @@ public class DatenbankInterface
             closeConnection(conn, preparedStatement);
         }
     }
-
+    
+    // Fächer in die Datenbank eintragen
     public void speichern(Fach fach)
     {
         Connection conn = null;
@@ -118,6 +138,7 @@ public class DatenbankInterface
         }
     }
 
+    // Anzahl der richtig beantworteten Fragen aktualisieren
     public void update(int id, int anzahlRichtigBeantwortet) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
@@ -135,7 +156,8 @@ public class DatenbankInterface
             closeConnection(conn, preparedStatement);
         }
     }
-
+    
+    // Datenbankverbindung schließen
     private void closeConnection(Connection conn, PreparedStatement preparedStatement) {
         if (preparedStatement != null){
             try {
