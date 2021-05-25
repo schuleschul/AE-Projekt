@@ -1,9 +1,6 @@
 package datenbank;
 
-import backend.Fach;
-import backend.FachSuchkriterium;
-import backend.Frage;
-import backend.FragenSuchkriterium;
+import backend.*;
 import konfiguration.Datenbank;
 
 import java.sql.Connection;
@@ -14,6 +11,8 @@ import java.util.ArrayList;
 
 public class DatenbankInterface
 {
+    Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
+
     // Fächer aus der Datenbank laden
     public ArrayList<Fach> laden(FachSuchkriterium suchkriterium)
     {
@@ -21,7 +20,7 @@ public class DatenbankInterface
         ArrayList<Fach> faecher = new ArrayList<>();
         try {
             conn = Datenbank.verbinden();
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subjects"); // ich werde noch suchkriterium anpassen
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subjects");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int fachId = resultSet.getInt("subject_id");
@@ -41,7 +40,7 @@ public class DatenbankInterface
         }
         return faecher;
     }
-    
+
     // Fragen aus der Datenbank laden
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
@@ -50,10 +49,17 @@ public class DatenbankInterface
         ArrayList<Frage> fragen = new ArrayList<>();
         try {
             conn = Datenbank.verbinden();
-            preparedStatement = conn.prepareStatement("SELECT * FROM questions"); // ich werde noch suchkriterium anpassen
+            StringBuilder query = new StringBuilder("SELECT * FROM questions");
+            if(suchkriterium.getId()!=null){
+                query.append(" where id=?");
+            }
+            preparedStatement = conn.prepareStatement(query.toString());
+            if(suchkriterium.getId()!=null){
+                preparedStatement.setInt(1, suchkriterium.getId());
+            }
             ResultSet resultSet = preparedStatement.executeQuery();
             //es wird bei jedem Aufruf eine Kopie des Arrays erstellt, weshalb es wesentlich effizienter ist, dieses Array einmalig zu cachen, statt in der folgenden Schleife jedes Mal neu zu initialisieren
-            Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
+//            Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
             while (resultSet.next()) {
                 int frageId = resultSet.getInt("question_id");
                 int fachId = resultSet.getInt("subject_id");
@@ -78,23 +84,33 @@ public class DatenbankInterface
         }
         return fragen;
     }
-    
+
     // Bilder aus der Datenbank laden (nicht fertig!)
-    public void bilderLaden() {
+    public Bild bilderLaden(int subjectId) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {
             conn = Datenbank.verbinden();
-            preparedStatement = conn.prepareStatement("SELECT * FROM images"); // Where wird noch angepasst
+            preparedStatement = conn.prepareStatement("SELECT * FROM images where subject_id=?");
+            preparedStatement.setInt(1, subjectId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            while (resultSet.next()) {
+                Integer bildId = resultSet.getInt("image_id");
+                Integer fachId = resultSet.getInt("subject_id");
+                String fachBild = resultSet.getString("subject_image");
+                String richtigBild = resultSet.getString("true_image");
+                String falschBild = resultSet.getString("false_image");
+                return new Bild(bildId, fachId, fachBild, richtigBild, falschBild);
+            }
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             closeConnection(conn, preparedStatement);
         }
+        return null;
     }
-    
+
     // Fragen in die Datenbank eintragen
     public void speichern(Frage frage) {
         Connection conn = null;
@@ -119,7 +135,7 @@ public class DatenbankInterface
             closeConnection(conn, preparedStatement);
         }
     }
-    
+
     // Fächer in die Datenbank eintragen
     public void speichern(Fach fach)
     {
@@ -156,7 +172,7 @@ public class DatenbankInterface
             closeConnection(conn, preparedStatement);
         }
     }
-    
+
     // Datenbankverbindung schließen
     private void closeConnection(Connection conn, PreparedStatement preparedStatement) {
         if (preparedStatement != null){
