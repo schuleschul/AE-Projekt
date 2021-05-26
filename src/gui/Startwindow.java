@@ -1,6 +1,3 @@
-package gui;
-
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,14 +11,14 @@ import javax.swing.event.*;
 public class Startwindow extends JFrame {
     // Anfang Attribute
     private JButton quizstart = new JButton();
-    private ImageIcon quizstartPressedIcon = new ImageIcon(getClass().getResource("/images/button_quizstart_pushed.png"));
-    private ImageIcon quizstartIcon = new ImageIcon(getClass().getResource("/images/button_quizstart.png"));
+    private ImageIcon quizstartPressedIcon = new ImageIcon(getClass().getResource("images/button_quizstart_pushed.png"));
+    private ImageIcon quizstartIcon = new ImageIcon(getClass().getResource("images/button_quizstart.png"));
     private JLabel jLabel1 = new JLabel();
-    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("/images/sb_Logo_big.png"));
+    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("images/sb_Logo_big.png"));
     private JButton settings = new JButton();
-    private ImageIcon settingsIcon = new ImageIcon(getClass().getResource("/images/settings_solo_small.png"));
+    private ImageIcon settingsIcon = new ImageIcon(getClass().getResource("images/settings_solo_small.png"));
     private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("/images/rahmen_bg.png"));
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
     // Ende Attribute
 
     public Startwindow() {
@@ -29,7 +26,7 @@ public class Startwindow extends JFrame {
         super();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
-        int frameHeight = 550;
+        int frameHeight = 520;
         setSize(frameWidth, frameHeight);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (d.width - getSize().width) / 2;
