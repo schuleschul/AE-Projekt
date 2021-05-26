@@ -20,7 +20,6 @@ public class Main {
 
         System.out.println(datenbankInterface.bilderLaden(1));
 
-
         System.out.println("Hallösche! Was möchten Sie tun?");
         System.out.println("1: Spielen");
         System.out.println("2: Fragen hinzufügen");
