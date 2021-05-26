@@ -1,5 +1,8 @@
+import backend.Frage;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -53,20 +56,17 @@ public class Quizscreen extends JFrame {
 
         infoScreen.setBounds(24, 38, 578, 233);
         infoScreen.setIcon(infoScreenIcon);
-        infoScreen.setText("Infoscreen");
         infoScreen.setHorizontalTextPosition(JLabel.CENTER);
         infoScreen.setVerticalTextPosition(JLabel.CENTER);
         cp.add(infoScreen);
         fragenfeld.setBounds(25, 266, 578, 68);
         fragenfeld.setIcon(fragenfeldIcon);
-        fragenfeld.setText("Hier steht die Frage");
         fragenfeld.setHorizontalTextPosition(JLabel.CENTER);
         fragenfeld.setVerticalTextPosition(JLabel.CENTER);
         cp.add(fragenfeld);
 
         antwortA.setBounds(24, 328, 292, 68);
         antwortA.setIcon(antwortAIcon);
-        antwortA.setText("Anwort A");
         antwortA.setHorizontalTextPosition(JLabel.CENTER);
         antwortA.setVerticalTextPosition(JLabel.CENTER);
         antwortA.setIconTextGap(4);
@@ -83,7 +83,6 @@ public class Quizscreen extends JFrame {
 
         antwortB.setBounds(311, 328, 292, 68);
         antwortB.setIcon(antwortBIcon);
-        antwortB.setText("Antwort B");
         antwortB.setHorizontalTextPosition(JLabel.CENTER);
         antwortB.setVerticalTextPosition(JLabel.CENTER);
         antwortB.setIconTextGap(4);
@@ -99,7 +98,6 @@ public class Quizscreen extends JFrame {
 
         antwortC.setBounds(24, 390, 292, 68);
         antwortC.setIcon(antwortCIcon);
-        antwortC.setText("Antwort C");
         antwortC.setHorizontalTextPosition(JLabel.CENTER);
         antwortC.setVerticalTextPosition(JLabel.CENTER);
         antwortC.setBorderPainted(false);
@@ -114,23 +112,40 @@ public class Quizscreen extends JFrame {
 
         antwortD.setBounds(311, 390, 292, 68);
         antwortD.setIcon(antwortDIcon);
-        antwortD.setText("Antwort D");
         antwortD.setHorizontalTextPosition(JLabel.CENTER);
         antwortD.setVerticalTextPosition(JLabel.CENTER);
         antwortD.setBorderPainted(false);
         antwortD.setContentAreaFilled(false);
-        antwortD.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                antwortD_ActionPerformed(evt);
-                System.out.println("D gedrückt!");
+//        antwortD.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent evt) {
+//                antwortD_ActionPerformed(evt);
+//                System.out.println("D gedrückt!");
+//            }
+//        antwortD.addActionListener();
+//        };
+        antwortD.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+//                getSource().getAntwort(this);
+                JButton button = (JButton) e.getSource();
+                getAntwort(button);
             }
         });
         cp.add(antwortD);
 
         // Ende Komponenten
 
-        setVisible(true);
+
     } // end of public Quizscreen
+
+
+    private void getAntwort(JButton button)
+    {
+        antwort = button.getText();
+        System.out.println(antwort);
+    }
 
 
     private void antwortA_ActionPerformed(ActionEvent evt) {
@@ -145,11 +160,36 @@ public class Quizscreen extends JFrame {
     private void antwortD_ActionPerformed(ActionEvent evt) {
     }
 
+    public void anzeigen(Frage frage)
+    {
+        infoScreen.setText("Infoscreen");
+        fragenfeld.setText(frage.getFrage());
+        ArrayList<String> alleAntworten = frage.getAlleAntworten();
+        antwortA.setText(alleAntworten.get(0));
+        antwortB.setText(alleAntworten.get(1));
+        antwortC.setText(alleAntworten.get(2));
+        antwortD.setText(alleAntworten.get(3));
+
+
+        setVisible(true);
+    }
     // Anfang Methoden
 
     public static void main(String[] args) {
-        new Quizscreen();
+        Quizscreen quizscreen = new Quizscreen();
+        ArrayList<String> liste = new ArrayList<String>();
+        liste.add("1");
+        liste.add("2");
+        liste.add("3");
+
+        Frage.Schwierigkeit schwierigkeit = Frage.Schwierigkeit.values()[1];
+        Frage frage = new Frage("hallo?", "ja", liste,  schwierigkeit, 2);
+        quizscreen.anzeigen(frage);
     } // end of main
 
-    // Ende Methoden
+    //gewählte Antwort
+    private String antwort;
+
+
+        // Ende Methoden
 } // end of class Quizscreen
