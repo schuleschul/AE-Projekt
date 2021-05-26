@@ -51,7 +51,7 @@ public class DatenbankInterface
             conn = Datenbank.verbinden();
             StringBuilder query = new StringBuilder("SELECT * FROM questions");
             if(suchkriterium.getId()!=null){
-                query.append(" where id=?");
+                query.append("WHERE subject_id=?");
             }
             preparedStatement = conn.prepareStatement(query.toString());
             if(suchkriterium.getId()!=null){
