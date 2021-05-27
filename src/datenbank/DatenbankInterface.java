@@ -51,8 +51,8 @@ public class DatenbankInterface
             conn = Datenbank.verbinden();
             StringBuilder query = new StringBuilder("SELECT * FROM questions");
             // Suchkriterien, wenn Frageschwierigkeit und Fach eingegeben ist
-            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) {
-                query.append("WHERE subject_id=? AND question_level=?");
+            if (suchkriterium.getSchwierigkeit()!=null && suchkriterium.getId()!=null) {
+                query.append(" WHERE subject_id=? AND question_level=?");
             } else if(suchkriterium.getId()!=null) { // wenn nur Fach eingegeben ist
                 query.append("WHERE subject_id=?");
             }
