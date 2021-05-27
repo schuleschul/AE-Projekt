@@ -58,7 +58,7 @@ public class DatenbankInterface
             }
             preparedStatement = conn.prepareStatement(query.toString());
 
-            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) {
+            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) { 
                 preparedStatement.setInt(1, suchkriterium.getId());
                 preparedStatement.setInt( 2, suchkriterium.getSchwierigkeit().ordinal());
             } else if(suchkriterium.getId()!=null){
