@@ -43,6 +43,7 @@ public class Main {
         Frage.Schwierigkeit level = getSchwierigkeit();
         System.out.println("Schwierigkeit " + level + " wurde gewählt");
         fragenSuchkriterium.setSchwierigkeit(level);
+        fragenSuchkriterium.setId(faecher.get(fachIndex).getId());
         ArrayList<Frage> fragen = fragenFactory.laden(fragenSuchkriterium);
 
         System.out.println("So mögen die Spiele beginnen!");
