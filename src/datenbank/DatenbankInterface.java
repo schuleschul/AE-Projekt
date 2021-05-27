@@ -50,11 +50,18 @@ public class DatenbankInterface
         try {
             conn = Datenbank.verbinden();
             StringBuilder query = new StringBuilder("SELECT * FROM questions");
-            if(suchkriterium.getId()!=null){
+            // Suchkriterien, wenn Frageschwierigkeit und Fach eingegeben ist
+            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) {
+                query.append("WHERE subject_id=? AND question_level=?");
+            } else if(suchkriterium.getId()!=null) { // wenn nur Fach eingegeben ist
                 query.append("WHERE subject_id=?");
             }
             preparedStatement = conn.prepareStatement(query.toString());
-            if(suchkriterium.getId()!=null){
+
+            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) {
+                preparedStatement.setInt(1, suchkriterium.getId());
+                preparedStatement.setInt( 2, suchkriterium.getSchwierigkeit().ordinal());
+            } else if(suchkriterium.getId()!=null){
                 preparedStatement.setInt(1, suchkriterium.getId());
             }
             ResultSet resultSet = preparedStatement.executeQuery();
