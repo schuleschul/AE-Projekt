@@ -19,6 +19,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(datenbankInterface.bilderLaden(1));
+      //  datenbankInterface.updatCurrentLevel(1,0);
 
         System.out.println("Hallösche! Was möchten Sie tun?");
         System.out.println("1: Spielen");

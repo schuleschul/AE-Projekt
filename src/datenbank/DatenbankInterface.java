@@ -180,6 +180,25 @@ public class DatenbankInterface
         }
     }
 
+    // Stadt des Spielers in der Datenbank aktualisieren
+    public void updatCurrentLevel (int subjectId, int level) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = Datenbank.verbinden();
+            preparedStatement = conn.prepareStatement("UPDATE current_state set current_level = ? where subject_id = ?");
+            preparedStatement.setInt(1, level);
+            preparedStatement.setInt(2, subjectId);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn, preparedStatement);
+        }
+    }
+
     // Datenbankverbindung schließen
     private void closeConnection(Connection conn, PreparedStatement preparedStatement) {
         if (preparedStatement != null){
