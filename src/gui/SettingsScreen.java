@@ -1,5 +1,7 @@
 package gui;
 
+import backend.Gamemaster;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,9 +14,10 @@ import javax.swing.*;
 public class SettingsScreen extends JFrame {
 
 
-    public SettingsScreen(Startwindow startwindow) {
+    public SettingsScreen(Gamemaster gamemaster, Startwindow startwindow) {
         // Frame-Initialisierung
         super();
+        this.gamemaster = gamemaster;
         this.startwindow = startwindow;
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -80,17 +83,14 @@ public class SettingsScreen extends JFrame {
 
     // Anfang Methoden
 
-    public static void main(String[] args) {
-//        SettingsScreen settings = new SettingsScreen();
-//        settings.setVisible(true);
-    } // end of main
 
     private class SchwierigkeitswahlListener implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-
+            //TODO Fenster zur Schwierigkeitswahl anzeigen
+            setVisible(false);
         }
     }
 
@@ -99,7 +99,8 @@ public class SettingsScreen extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-
+            //TODO Frageneditor anzeigen
+            setVisible(false);
         }
     }
 
@@ -134,5 +135,6 @@ public class SettingsScreen extends JFrame {
     private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
 
     private Startwindow startwindow;
+    private Gamemaster gamemaster;
     // Ende Attribute
 } // end of class Settings
