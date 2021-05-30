@@ -103,8 +103,19 @@ public class Quizscreen extends JFrame {
 
     } // end of public Quizscreen
 
+    public void anzeigen(ArrayList<Frage> fragen)
+    {
+        if(fragen.size() == 0)
+        {
+            throw new IllegalArgumentException();
+        }
+        this.fragen = fragen;
+        akutelleFrageIndex = 0;
+        anzeigen(fragen.get(akutelleFrageIndex));
+    }
 
-    public void anzeigen(Frage frage)
+
+    private void anzeigen(Frage frage)
     {
         istEingeloggt = false;
         this.frage = frage;
@@ -134,7 +145,12 @@ public class Quizscreen extends JFrame {
 
         Frage.Schwierigkeit schwierigkeit = Frage.Schwierigkeit.values()[1];
         Frage frage = new Frage("hallo?", "ja", liste,  schwierigkeit, 2);
-        quizscreen.anzeigen(frage);
+        ArrayList<Frage> fragen = new ArrayList<Frage>();
+        fragen.add(frage);
+        fragen.add(new Frage("hallo?", "nein", liste,  schwierigkeit, 2));
+        fragen.add(new Frage("hallo?", "doch", liste,  schwierigkeit, 2));
+        fragen.add(new Frage("hallo?", "ohh", liste,  schwierigkeit, 2));
+        quizscreen.anzeigen(fragen);
     } // end of main
 
 
@@ -162,6 +178,17 @@ public class Quizscreen extends JFrame {
                 {
                     System.out.println("Schade eigentlich.");
                 }
+                System.out.println("Index: " + akutelleFrageIndex);
+                if(akutelleFrageIndex < (fragen.size() -1))
+                {
+                    anzeigen(fragen.get(++akutelleFrageIndex));
+                }
+                else
+                {
+                    //hier goodbye screen einblenden, der ua den Score anzeigt
+                    System.out.println("Level vorbei!");
+                    System.out.println(gamemaster.getScore());
+                }
             }
         }
     }
@@ -172,6 +199,7 @@ public class Quizscreen extends JFrame {
         if(istRichtig)
         {
             //button grün machen
+            System.out.println("RICHTIG!!!");
         }
         else
         {
@@ -222,6 +250,8 @@ public class Quizscreen extends JFrame {
 
     private String antwort;         //gewählte Antwort
     private Frage frage;
+    private ArrayList<Frage> fragen;
+    private int akutelleFrageIndex;
     private boolean istEingeloggt;  //damti nicht ständig neue Buttonevents ausgelöst werden, wird überpürt, ob eine Antwort schon eingeloggt wurde
     private Gamemaster gamemaster;
     private AntwortValidierer antwortValidierer;
