@@ -10,7 +10,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.swing.*;
-import javax.swing.event.*;
 
 
 //Gui Element - Quizfenster
@@ -26,6 +25,7 @@ public class Quizscreen extends JFrame {
         this.gamemaster = gamemaster;
         this.antwortValidierer = antwortValidierer;
         buttonListener = new ButtonListener();
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
         int frameHeight = 550;
@@ -231,6 +231,7 @@ public class Quizscreen extends JFrame {
         }
         TimeUnit.SECONDS.sleep(5);
     }
+
 
     // Anfang Attribute
     private JLabel infoScreen = new JLabel();
