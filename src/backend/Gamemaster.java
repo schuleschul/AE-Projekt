@@ -12,7 +12,7 @@ public class Gamemaster
         this.fragenFactory = fragenFactory;
         this.themenFactory = themenFactory;
     }
-    
+
 
     //diese Methode soll die notwendigen Reaktionen auf das Ergebnis der letzten Frage übernehmen. Bis jetzt ist es nur das Update
     //von AnzahlRichtigBeantwortet in der GUI

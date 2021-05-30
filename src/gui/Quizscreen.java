@@ -17,11 +17,11 @@ import javax.swing.*;
 
 public class Quizscreen extends JFrame {
 
-    public Quizscreen(Gamemaster gamemaster, AntwortValidierer antwortValidierer) {
+    public Quizscreen(Gamemaster gamemaster) {
         // Frame-Initialisierung
         super();
         this.gamemaster = gamemaster;
-        this.antwortValidierer = antwortValidierer;
+        this.antwortValidierer = new AntwortValidierer();
         buttonListener = new ButtonListener();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -107,7 +107,7 @@ public class Quizscreen extends JFrame {
     {
         if(fragen.size() == 0)
         {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("es wurden keine Fragen übergeben!");
         }
         this.fragen = fragen;
         akutelleFrageIndex = 0;
@@ -136,7 +136,7 @@ public class Quizscreen extends JFrame {
         DatenbankInterface datenbankInterface = new DatenbankInterface();
         AntwortValidierer antwortValidierer = new AntwortValidierer();
         Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
-        Quizscreen quizscreen = new Quizscreen(gamemaster, antwortValidierer);
+        Quizscreen quizscreen = new Quizscreen(gamemaster);
 
         ArrayList<String> liste = new ArrayList<String>();
         liste.add("1");

@@ -1,8 +1,5 @@
 package gui;
-import backend.AntwortValidierer;
-import backend.FragenFactory;
-import backend.Gamemaster;
-import backend.ThemenFactory;
+import backend.*;
 import datenbank.DatenbankInterface;
 
 
@@ -92,9 +89,16 @@ public class Startwindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            Quizscreen quizscreen = new Quizscreen(gamemaster);
+            //TODO die setter sind nur für Testzwecke hier. Sobald die Auswahlscreens fertig sind, diese Zeilen entfernen!
+
+            DatenbankInterface datenbankInterface = new DatenbankInterface();
+            ThemenFactory themenfactory = new ThemenFactory(datenbankInterface);
+            gamemaster.setSchwierigkeit(Frage.Schwierigkeit.mittel);
+            gamemaster.setThema(themenfactory.laden().get(0));
 
             Startwindow.this.dispose();
-
+            quizscreen.anzeigen(gamemaster.getFragen());
         }
     }
 
