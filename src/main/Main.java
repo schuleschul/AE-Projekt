@@ -14,6 +14,10 @@ public class Main {
         Gamemaster gamemaster = new Gamemaster(datenbankInterface, fragenFactory, themenFactory);
         Startwindow startwindow = new Startwindow(gamemaster);
         startwindow.setVisible(true);
+
+      /* datenbankInterface.updatCurrentLevel(1,0);
+         System.out.println(test);
+         int test = datenbankInterface.getCurrentLevel(1); */
     }
 
 }

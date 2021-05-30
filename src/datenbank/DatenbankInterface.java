@@ -183,6 +183,24 @@ public class DatenbankInterface
     //nur das outline
     public int getCurrentLevel(int subjectId)
     {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = Datenbank.verbinden();
+            preparedStatement = conn.prepareStatement("SELECT * FROM current_state where subject_id=?");
+            preparedStatement.setInt(1, subjectId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                // Integer subjectIdFromDb = resultSet.getInt("subject_id");
+                Integer currentLavel = resultSet.getInt("current_level");
+                return currentLavel;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn, preparedStatement);
+        }
         return 0;
     }
 
