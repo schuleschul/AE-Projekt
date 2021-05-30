@@ -33,6 +33,7 @@ public class Quizscreen extends JFrame {
     public Quizscreen() {
         // Frame-Initialisierung
         super();
+        buttonListener = new ButtonListener();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
         int frameHeight = 550;
@@ -72,12 +73,7 @@ public class Quizscreen extends JFrame {
         antwortA.setIconTextGap(4);
         antwortA.setBorderPainted(false);
         antwortA.setContentAreaFilled(false);
-        antwortA.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                antwortA_ActionPerformed(evt);
-                System.out.println("A gedrückt!");
-            }
-        });
+        antwortA.addActionListener(buttonListener);
 
         cp.add(antwortA);
 
@@ -88,12 +84,8 @@ public class Quizscreen extends JFrame {
         antwortB.setIconTextGap(4);
         antwortB.setBorderPainted(false);
         antwortB.setContentAreaFilled(false);
-        antwortB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                antwortB_ActionPerformed(evt);
-                System.out.println("B gedrückt!");
-            }
-        });
+        antwortB.addActionListener(buttonListener);
+
         cp.add(antwortB);
 
         antwortC.setBounds(24, 390, 292, 68);
@@ -102,12 +94,8 @@ public class Quizscreen extends JFrame {
         antwortC.setVerticalTextPosition(JLabel.CENTER);
         antwortC.setBorderPainted(false);
         antwortC.setContentAreaFilled(false);
-        antwortC.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                antwortC_ActionPerformed(evt);
-                System.out.println("C gedrückt!");
-            }
-        });
+        antwortC.addActionListener(buttonListener);
+
         cp.add(antwortC);
 
         antwortD.setBounds(311, 390, 292, 68);
@@ -116,49 +104,15 @@ public class Quizscreen extends JFrame {
         antwortD.setVerticalTextPosition(JLabel.CENTER);
         antwortD.setBorderPainted(false);
         antwortD.setContentAreaFilled(false);
-//        antwortD.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent evt) {
-//                antwortD_ActionPerformed(evt);
-//                System.out.println("D gedrückt!");
-//            }
-//        antwortD.addActionListener();
-//        };
-        antwortD.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-//                getSource().getAntwort(this);
-                JButton button = (JButton) e.getSource();
-                getAntwort(button);
-            }
-        });
+        antwortD.addActionListener(buttonListener);
+
         cp.add(antwortD);
 
         // Ende Komponenten
 
 
     } // end of public Quizscreen
-
-
-    private void getAntwort(JButton button)
-    {
-        antwort = button.getText();
-        System.out.println(antwort);
-    }
-
-
-    private void antwortA_ActionPerformed(ActionEvent evt) {
-    }
-
-    private void antwortB_ActionPerformed(ActionEvent evt) {
-    }
-
-    private void antwortC_ActionPerformed(ActionEvent evt) {
-    }
-
-    private void antwortD_ActionPerformed(ActionEvent evt) {
-    }
+    
 
     public void anzeigen(Frage frage)
     {
@@ -187,9 +141,21 @@ public class Quizscreen extends JFrame {
         quizscreen.anzeigen(frage);
     } // end of main
 
+    private class ButtonListener implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            JButton source = (JButton) e.getSource();
+            antwort = source.getText();
+            System.out.println(antwort);
+        }
+    }
+
     //gewählte Antwort
     private String antwort;
-
+    private ButtonListener buttonListener;
 
         // Ende Methoden
 } // end of class Quizscreen
