@@ -1,3 +1,5 @@
+package gui;
+
 import backend.AntwortValidierer;
 import backend.Frage;
 import backend.Gamemaster;
@@ -160,6 +162,7 @@ public class Quizscreen extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            //TODO das löst nur, das klicken am Ende des Spiels, zwischen den Fragen werden weitere events immer noch verarbeitet..
             if(!istEingeloggt)
             {
                 istEingeloggt = true;
@@ -231,19 +234,19 @@ public class Quizscreen extends JFrame {
 
     // Anfang Attribute
     private JLabel infoScreen = new JLabel();
-    private ImageIcon infoScreenIcon = new ImageIcon(getClass().getResource("images/quiz_infoscreen_empty.png"));
+    private ImageIcon infoScreenIcon = new ImageIcon(getClass().getResource("../images/quiz_infoscreen_empty.png"));
     private JLabel fragenfeld = new JLabel();
-    private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("images/frage_textfeld.png"));
+    private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("../images/frage_textfeld.png"));
     private JButton antwortA = new JButton();
-    private ImageIcon antwortAIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private ImageIcon antwortAIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortB = new JButton();
-    private ImageIcon antwortBIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private ImageIcon antwortBIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortC = new JButton();
-    private ImageIcon antwortCIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private ImageIcon antwortCIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortD = new JButton();
-    private ImageIcon antwortDIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private ImageIcon antwortDIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
     // Ende Attribute
 
 
