@@ -1,8 +1,6 @@
 package gui;
 
-import backend.AntwortValidierer;
-import backend.Frage;
-import backend.Gamemaster;
+import backend.*;
 import datenbank.DatenbankInterface;
 
 import java.awt.*;
@@ -137,7 +135,7 @@ public class Quizscreen extends JFrame {
     public static void main(String[] args) {
         DatenbankInterface datenbankInterface = new DatenbankInterface();
         AntwortValidierer antwortValidierer = new AntwortValidierer();
-        Gamemaster gamemaster = new Gamemaster(datenbankInterface);
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
         Quizscreen quizscreen = new Quizscreen(gamemaster, antwortValidierer);
 
         ArrayList<String> liste = new ArrayList<String>();

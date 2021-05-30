@@ -14,7 +14,7 @@ public class Main {
         ThemenFactory themenFactory = new ThemenFactory(datenbankInterface);
         FragenSuchkriterium fragenSuchkriterium = new FragenSuchkriterium();
         AntwortValidierer antwortValidierer = new AntwortValidierer();
-        Gamemaster gamemaster = new Gamemaster(datenbankInterface);
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface, fragenFactory, themenFactory);
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(datenbankInterface.bilderLaden(1));
@@ -43,7 +43,7 @@ public class Main {
         Frage.Schwierigkeit level = getSchwierigkeit();
         System.out.println("Schwierigkeit " + level + " wurde gewählt");
         fragenSuchkriterium.setSchwierigkeit(level);
-        fragenSuchkriterium.setId(faecher.get(fachIndex).getId());
+        fragenSuchkriterium.setFachId(faecher.get(fachIndex).getId());
         ArrayList<Frage> fragen = fragenFactory.laden(fragenSuchkriterium);
 
         System.out.println("So mögen die Spiele beginnen!");

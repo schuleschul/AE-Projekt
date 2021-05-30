@@ -90,7 +90,7 @@ public class SettingsScreen extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
             //TODO Fenster zur Schwierigkeitswahl anzeigen
-            setVisible(false);
+//            setVisible(false);
         }
     }
 
@@ -100,7 +100,7 @@ public class SettingsScreen extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
             //TODO Frageneditor anzeigen
-            setVisible(false);
+//            setVisible(false);
         }
     }
 

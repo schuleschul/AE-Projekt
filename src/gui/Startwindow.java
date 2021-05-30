@@ -1,6 +1,8 @@
 package gui;
 import backend.AntwortValidierer;
+import backend.FragenFactory;
 import backend.Gamemaster;
+import backend.ThemenFactory;
 import datenbank.DatenbankInterface;
 
 
@@ -79,7 +81,7 @@ public class Startwindow extends JFrame {
     {
         DatenbankInterface datenbankInterface = new DatenbankInterface();
 //        AntwortValidierer antwortValidierer = new AntwortValidierer();
-        Gamemaster gamemaster = new Gamemaster(datenbankInterface);
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
 //        Quizscreen quizscreen = new Quizscreen(gamemaster, antwortValidierer);
         Startwindow startwindow = new Startwindow(gamemaster);
         startwindow.setVisible(true);
