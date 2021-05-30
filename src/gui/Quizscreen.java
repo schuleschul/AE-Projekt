@@ -1,8 +1,12 @@
+import backend.AntwortValidierer;
 import backend.Frage;
+import backend.Gamemaster;
+import datenbank.DatenbankInterface;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -13,26 +17,12 @@ import javax.swing.event.*;
 
 
 public class Quizscreen extends JFrame {
-    // Anfang Attribute
-    private JLabel infoScreen = new JLabel();
-    private ImageIcon infoScreenIcon = new ImageIcon(getClass().getResource("images/quiz_infoscreen_empty.png"));
-    private JLabel fragenfeld = new JLabel();
-    private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("images/frage_textfeld.png"));
-    private JButton antwortA = new JButton();
-    private ImageIcon antwortAIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
-    private JButton antwortB = new JButton();
-    private ImageIcon antwortBIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
-    private JButton antwortC = new JButton();
-    private ImageIcon antwortCIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
-    private JButton antwortD = new JButton();
-    private ImageIcon antwortDIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
-    private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
-    // Ende Attribute
 
-    public Quizscreen() {
+    public Quizscreen(Gamemaster gamemaster, AntwortValidierer antwortValidierer) {
         // Frame-Initialisierung
         super();
+        this.gamemaster = gamemaster;
+        this.antwortValidierer = antwortValidierer;
         buttonListener = new ButtonListener();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
@@ -112,10 +102,12 @@ public class Quizscreen extends JFrame {
 
 
     } // end of public Quizscreen
-    
+
 
     public void anzeigen(Frage frage)
     {
+        istEingeloggt = false;
+        this.frage = frage;
         infoScreen.setText("Infoscreen");
         fragenfeld.setText(frage.getFrage());
         ArrayList<String> alleAntworten = frage.getAlleAntworten();
@@ -130,7 +122,11 @@ public class Quizscreen extends JFrame {
     // Anfang Methoden
 
     public static void main(String[] args) {
-        Quizscreen quizscreen = new Quizscreen();
+        DatenbankInterface datenbankInterface = new DatenbankInterface();
+        AntwortValidierer antwortValidierer = new AntwortValidierer();
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface);
+        Quizscreen quizscreen = new Quizscreen(gamemaster, antwortValidierer);
+
         ArrayList<String> liste = new ArrayList<String>();
         liste.add("1");
         liste.add("2");
@@ -141,20 +137,94 @@ public class Quizscreen extends JFrame {
         quizscreen.anzeigen(frage);
     } // end of main
 
+
+
     private class ButtonListener implements ActionListener
     {
-
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            JButton source = (JButton) e.getSource();
-            antwort = source.getText();
-            System.out.println(antwort);
+            if(!istEingeloggt)
+            {
+                istEingeloggt = true;
+                JButton button = (JButton) e.getSource();
+                antwort = button.getText();
+                System.out.println(antwort);
+                boolean istRichtig = antwortValidierer.istRichtig(frage, antwort);
+                System.out.println(istRichtig);
+                gamemaster.takeAction(frage, istRichtig);
+
+                try
+                {
+                    showResult(button, istRichtig);
+                }
+                catch(InterruptedException exception)
+                {
+                    System.out.println("Schade eigentlich.");
+                }
+            }
         }
     }
 
-    //gewählte Antwort
-    private String antwort;
+    //zeigt an, ob die Antwort richtig war oder nicht
+    private void showResult(JButton button, boolean istRichtig) throws InterruptedException
+    {
+        if(istRichtig)
+        {
+            //button grün machen
+        }
+        else
+        {
+            //button rot machen
+            System.out.println("Antwort ist falsch!");
+            if(antwortA.getText().equals(frage.getRichtigeAntwort()))
+            {
+                //grün machen
+                System.out.println("AntwortA ist richtig");
+            }
+            else if(antwortB.getText().equals(frage.getRichtigeAntwort()))
+            {
+                //grün machen
+                System.out.println("AntwortB ist richtig");
+            }
+            else if(antwortC.getText().equals(frage.getRichtigeAntwort()))
+            {
+                //grün machen
+                System.out.println("AntwortC ist richtig");
+            }
+            else if(antwortD.getText().equals(frage.getRichtigeAntwort()))
+            {
+                //grün machen
+                System.out.println("AntwortD ist richtig");
+            }
+        }
+        TimeUnit.SECONDS.sleep(5);
+    }
+
+    // Anfang Attribute
+    private JLabel infoScreen = new JLabel();
+    private ImageIcon infoScreenIcon = new ImageIcon(getClass().getResource("images/quiz_infoscreen_empty.png"));
+    private JLabel fragenfeld = new JLabel();
+    private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("images/frage_textfeld.png"));
+    private JButton antwortA = new JButton();
+    private ImageIcon antwortAIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private JButton antwortB = new JButton();
+    private ImageIcon antwortBIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private JButton antwortC = new JButton();
+    private ImageIcon antwortCIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private JButton antwortD = new JButton();
+    private ImageIcon antwortDIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
+    private JLabel rahmen_bg_layer = new JLabel();
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
+    // Ende Attribute
+
+
+
+    private String antwort;         //gewählte Antwort
+    private Frage frage;
+    private boolean istEingeloggt;  //damti nicht ständig neue Buttonevents ausgelöst werden, wird überpürt, ob eine Antwort schon eingeloggt wurde
+    private Gamemaster gamemaster;
+    private AntwortValidierer antwortValidierer;
     private ButtonListener buttonListener;
 
         // Ende Methoden
