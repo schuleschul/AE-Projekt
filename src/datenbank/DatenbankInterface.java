@@ -51,18 +51,18 @@ public class DatenbankInterface
             conn = Datenbank.verbinden();
             StringBuilder query = new StringBuilder("SELECT * FROM questions");
             // Suchkriterien, wenn Frageschwierigkeit und Fach eingegeben ist
-            if (suchkriterium.getSchwierigkeit()!=null && suchkriterium.getId()!=null) {
+            if (suchkriterium.getSchwierigkeit()!=null && suchkriterium.getFachId()!=null) {
                 query.append(" WHERE subject_id=? AND question_level=?");
-            } else if(suchkriterium.getId()!=null) { // wenn nur Fach eingegeben ist
+            } else if(suchkriterium.getFachId()!=null) { // wenn nur Fach eingegeben ist
                 query.append("WHERE subject_id=?");
             }
             preparedStatement = conn.prepareStatement(query.toString());
 
-            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) { 
-                preparedStatement.setInt(1, suchkriterium.getId());
+            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getFachId()!=null) {
+                preparedStatement.setInt(1, suchkriterium.getFachId());
                 preparedStatement.setInt( 2, suchkriterium.getSchwierigkeit().ordinal());
-            } else if(suchkriterium.getId()!=null){
-                preparedStatement.setInt(1, suchkriterium.getId());
+            } else if(suchkriterium.getFachId()!=null){
+                preparedStatement.setInt(1, suchkriterium.getFachId());
             }
             ResultSet resultSet = preparedStatement.executeQuery();
             //es wird bei jedem Aufruf eine Kopie des Arrays erstellt, weshalb es wesentlich effizienter ist, dieses Array einmalig zu cachen, statt in der folgenden Schleife jedes Mal neu zu initialisieren
