@@ -160,7 +160,7 @@ public class Quizscreen extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            //TODO das löst nur, das klicken am Ende des Spiels, zwischen den Fragen werden weitere events immer noch verarbeitet..
+            //TODO das löst nur das klicken am Ende des Spiels, zwischen den Fragen werden weitere events immer noch verarbeitet..
             if(!istEingeloggt)
             {
                 istEingeloggt = true;
