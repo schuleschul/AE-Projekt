@@ -180,6 +180,12 @@ public class DatenbankInterface
         }
     }
 
+    //nur das outline
+    public int getCurrentLevel(int subjectId)
+    {
+        return 0;
+    }
+
     // Stadt des Spielers in der Datenbank aktualisieren
     public void updatCurrentLevel (int subjectId, int level) {
         Connection conn = null;

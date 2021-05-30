@@ -12,7 +12,7 @@ public class Gamemaster
         this.fragenFactory = fragenFactory;
         this.themenFactory = themenFactory;
     }
-
+    
 
     //diese Methode soll die notwendigen Reaktionen auf das Ergebnis der letzten Frage übernehmen. Bis jetzt ist es nur das Update
     //von AnzahlRichtigBeantwortet in der GUI
@@ -52,9 +52,10 @@ public class Gamemaster
         return score;
     }
 
-    public Frage.Schwierigkeit getSchwierigkeit()
+    public Frage.Schwierigkeit getMaxSchwierigkeit()
     {
-        return schwierigkeit;
+        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
+        return maxSchwierigkeit;
     }
 
     public Frage.Schwierigkeit getSchwierigkiet()
@@ -82,6 +83,7 @@ public class Gamemaster
     private final ThemenFactory themenFactory;
     private final int anzahlFragenProRunde = 10;
     private int score = 0;
+    private Frage.Schwierigkeit maxSchwierigkeit;       //die maximal auswählbare Schwierigkeit
 
     //vom Spieler vorzunehmende Einstellungen
     private Frage.Schwierigkeit schwierigkeit;
