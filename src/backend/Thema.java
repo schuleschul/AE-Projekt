@@ -1,16 +1,16 @@
 package backend;
 
-public class Fach
+public class Thema
 {
     //Konstruktor fürs Laden aus der DB
-    public Fach( int fachId, String bezeichnung)
+    public Thema(int fachId, String bezeichnung)
     {
         this.bezeichnung = bezeichnung;
         this.fachId = fachId;
     }
 
     //Konstruktor fürs Speichern in der DB
-    public Fach(String bezeichnung)
+    public Thema(String bezeichnung)
     {
         this.bezeichnung = bezeichnung;
         //wird von der Datenbank bestimmt

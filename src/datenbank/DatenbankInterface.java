@@ -14,10 +14,10 @@ public class DatenbankInterface
     Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
 
     // Fächer aus der Datenbank laden
-    public ArrayList<Fach> laden(FachSuchkriterium suchkriterium)
+    public ArrayList<Thema> laden(FachSuchkriterium suchkriterium)
     {
         Connection conn = null;
-        ArrayList<Fach> faecher = new ArrayList<>();
+        ArrayList<Thema> faecher = new ArrayList<>();
         try {
             conn = Datenbank.verbinden();
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subjects");
@@ -25,7 +25,7 @@ public class DatenbankInterface
             while (resultSet.next()) {
                 int fachId = resultSet.getInt("subject_id");
                 String bezeichnung = resultSet.getString("subject_name");
-                faecher.add(new Fach(fachId, bezeichnung));
+                faecher.add(new Thema(fachId, bezeichnung));
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -144,14 +144,14 @@ public class DatenbankInterface
     }
 
     // Fächer in die Datenbank eintragen
-    public void speichern(Fach fach)
+    public void speichern(Thema thema)
     {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {
             conn = Datenbank.verbinden();
             preparedStatement = conn.prepareStatement("INSERT INTO subjects (subject_name) VALUES (?)");
-            preparedStatement.setString(1, fach.getBezeichnung());
+            preparedStatement.setString(1, thema.getBezeichnung());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e){

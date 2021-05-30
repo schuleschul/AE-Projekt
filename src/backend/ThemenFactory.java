@@ -2,28 +2,28 @@ package backend;
 import datenbank.DatenbankInterface;
 import java.util.ArrayList;
 
-public class FachFactory
+public class ThemenFactory
 {
-    public FachFactory(DatenbankInterface datenbank)
+    public ThemenFactory(DatenbankInterface datenbank)
     {
         this.datenbank = datenbank;
     }
 
     //lädt einfach alle Fächer
-    public ArrayList<Fach> laden()
+    public ArrayList<Thema> laden()
     {
         FachSuchkriterium suchkriterium = new FachSuchkriterium();
         return laden(suchkriterium);
     }
 
-    public ArrayList<Fach> laden(FachSuchkriterium suchkriterium)
+    public ArrayList<Thema> laden(FachSuchkriterium suchkriterium)
     {
         return datenbank.laden(suchkriterium);
     }
 
     public void speichern(String bezeichnung)
     {
-        datenbank.speichern(new Fach(bezeichnung));
+        datenbank.speichern(new Thema(bezeichnung));
     }
 
     private final DatenbankInterface datenbank;

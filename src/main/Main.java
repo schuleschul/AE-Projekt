@@ -4,7 +4,6 @@ import backend.*;
 import datenbank.DatenbankInterface;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +11,7 @@ public class Main {
     {
         DatenbankInterface datenbankInterface = new DatenbankInterface();
         FragenFactory fragenFactory = new FragenFactory(datenbankInterface);
-        FachFactory fachFactory = new FachFactory(datenbankInterface);
+        ThemenFactory themenFactory = new ThemenFactory(datenbankInterface);
         FragenSuchkriterium fragenSuchkriterium = new FragenSuchkriterium();
         AntwortValidierer antwortValidierer = new AntwortValidierer();
         Gamemaster gamemaster = new Gamemaster(datenbankInterface);
@@ -37,7 +36,7 @@ public class Main {
             return;
         }
 
-        ArrayList<Fach> faecher = fachFactory.laden();
+        ArrayList<Thema> faecher = themenFactory.laden();
         int fachIndex = getFach(faecher);
         System.out.println("Die Fragen werden aus dem Fach " + faecher.get(fachIndex).getBezeichnung() + " stammen.");
 
@@ -125,13 +124,13 @@ public class Main {
     }
 
     //fragt den User nach dem Fach; returned momentan den Index des gewählten Fachs im Array
-    private static int getFach(ArrayList<Fach> faecher)
+    private static int getFach(ArrayList<Thema> faecher)
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Aus welchem Fach sollen Ihre Fragen stammen?");
-        for (Fach fach : faecher)
+        for (Thema thema : faecher)
         {
-            System.out.println(fach.getBezeichnung() + ": " + (fach.getId()));      //die IDs starten bei 1
+            System.out.println(thema.getBezeichnung() + ": " + (thema.getId()));      //die IDs starten bei 1
         }
 
         int wahl = scanner.nextInt();
