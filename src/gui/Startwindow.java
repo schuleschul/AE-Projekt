@@ -1,7 +1,12 @@
+package gui;
+import backend.AntwortValidierer;
+import backend.Gamemaster;
+import datenbank.DatenbankInterface;
+
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 //Gui Element - Startfenster
 // v1.0 - 05/2021
@@ -9,21 +14,14 @@ import javax.swing.event.*;
 
 
 public class Startwindow extends JFrame {
-    // Anfang Attribute
-    private JButton quizstart = new JButton();
-    private ImageIcon quizstartPressedIcon = new ImageIcon(getClass().getResource("images/button_quizstart_pushed.png"));
-    private ImageIcon quizstartIcon = new ImageIcon(getClass().getResource("images/button_quizstart.png"));
-    private JLabel jLabel1 = new JLabel();
-    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("images/sb_Logo_big.png"));
-    private JButton settings = new JButton();
-    private ImageIcon settingsIcon = new ImageIcon(getClass().getResource("images/settings_solo_small.png"));
-    private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
-    // Ende Attribute
 
-    public Startwindow() {
+    public Startwindow(Gamemaster gamemaster) {
         // Frame-Initialisierung
         super();
+        this.gamemaster = gamemaster;
+        QuizstartListener quizstartListener = new QuizstartListener();
+        SettingsListener settingsListener = new SettingsListener();
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
         int frameHeight = 520;
@@ -43,12 +41,7 @@ public class Startwindow extends JFrame {
         quizstart.setBounds(176, 336, 311, 68);
         quizstart.setText("");
         quizstart.setMargin(new Insets(2, 2, 2, 2));
-        quizstart.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                quizstart_ActionPerformed(evt);
-                System.out.println("Startbutton gedrückt!");
-            }
-        });
+        quizstart.addActionListener(quizstartListener);
         quizstart.setIcon(quizstartIcon);
 
         quizstart.setBorderPainted(false);
@@ -60,47 +53,74 @@ public class Startwindow extends JFrame {
         jLabel1.setText("");
         jLabel1.setIcon(jLabel1Icon);
         cp.add(jLabel1);
-        settings.setBounds(548, 20, 73, 73);
-        settings.setText("");
-        settings.setMargin(new Insets(2, 2, 2, 2));
-        settings.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                settings_ActionPerformed(evt);
-                System.out.println("Settingsicon gedrückt!");
-            }
-        });
-        settings.setIcon(settingsIcon);
+        settingsButton.setBounds(548, 20, 73, 73);
+        settingsButton.setText("");
+        settingsButton.setMargin(new Insets(2, 2, 2, 2));
+        settingsButton.addActionListener(settingsListener);
+        settingsButton.setIcon(settingsIcon);
 
-        settings.setBorderPainted(false);
-        settings.setContentAreaFilled(false);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setContentAreaFilled(false);
 
-        cp.add(settings);
+        cp.add(settingsButton);
         rahmen_bg_layer.setBounds(8, 20, 613, 454);
         rahmen_bg_layer.setText("");
         rahmen_bg_layer.setIcon(rahmen_bg_layerIcon);
         cp.add(rahmen_bg_layer);
         // Ende Komponenten
 
-        setVisible(true);
+
     } // end of public Hauptmenue
 
     // Anfang Methoden
 
-    public static void main(String[] args) {
-        new Startwindow();
+
+    public static void main(String[] args)
+    {
+        DatenbankInterface datenbankInterface = new DatenbankInterface();
+//        AntwortValidierer antwortValidierer = new AntwortValidierer();
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface);
+//        Quizscreen quizscreen = new Quizscreen(gamemaster, antwortValidierer);
+        Startwindow startwindow = new Startwindow(gamemaster);
+        startwindow.setVisible(true);
     } // end of main
 
-    public void quizstart_ActionPerformed(ActionEvent evt) {
-        // TODO hier Quelltext einfügen
-        System.out.println("x");
+    private class QuizstartListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
 
-    } // end of quizstart_ActionPerformed
+            Startwindow.this.dispose();
 
-    public void settings_ActionPerformed(ActionEvent evt) {
-        // TODO hier Quelltext einfügen
-        System.out.println("y");
+        }
+    }
 
-    } // end of settings_ActionPerformed
+    private class SettingsListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            Startwindow.this.setVisible(false);
+            SettingsScreen settings = new SettingsScreen(Startwindow.this.gamemaster, Startwindow.this);
+            settings.setVisible(true);
+        }
+    }
+
+
+    // Anfang Attribute
+    private JButton quizstart = new JButton();
+    private ImageIcon quizstartPressedIcon = new ImageIcon(getClass().getResource("../images/button_quizstart_pushed.png"));
+    private ImageIcon quizstartIcon = new ImageIcon(getClass().getResource("../images/button_quizstart.png"));
+    private JLabel jLabel1 = new JLabel();
+    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("../images/sb_Logo_big.png"));
+    private JButton settingsButton = new JButton();
+    private ImageIcon settingsIcon = new ImageIcon(getClass().getResource("../images/settings_solo_small.png"));
+    private JLabel rahmen_bg_layer = new JLabel();
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+    // Ende Attribute
+
+    private Gamemaster gamemaster;
 
     // Ende Methoden
 } // end of class Startwindow
