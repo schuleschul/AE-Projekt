@@ -13,8 +13,6 @@ public class Datenbank {
         Connection conn = null;
         try {
             // Datenbankparameter
-            // Pfad kann je nach Betriebssystem anders sein,
-            // hauptsache die Datei heißt datenbank.db
             String url = "jdbc:sqlite:datenbank.db";
             // Datenbankverbindung herstellen
             conn = DriverManager.getConnection(url);

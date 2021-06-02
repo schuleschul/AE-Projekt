@@ -13,7 +13,7 @@ public class DatenbankInterface
 {
     Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
 
-    // Fächer aus der Datenbank laden
+    // alle Themengebiete aus der Datenbank laden
     public ArrayList<Thema> laden(FachSuchkriterium suchkriterium)
     {
         Connection conn = null;
@@ -41,7 +41,8 @@ public class DatenbankInterface
         return faecher;
     }
 
-    // Fragen aus der Datenbank laden
+    // alle Fragen aus der Datenbank laden
+    // alle Fragen nach Suchkriterien aus der Datenbank laden
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
         Connection conn = null;
@@ -50,10 +51,12 @@ public class DatenbankInterface
         try {
             conn = Datenbank.verbinden();
             StringBuilder query = new StringBuilder("SELECT * FROM questions");
-            // Suchkriterien, wenn Frageschwierigkeit und Fach eingegeben ist
+
+            // Suchkriterien, wenn Frageschwierigkeit und Thema eingegeben ist
+            // oder wenn nur Thema eingegeben ist
             if (suchkriterium.getSchwierigkeit()!=null && suchkriterium.getFachId()!=null) {
                 query.append(" WHERE subject_id=? AND question_level=?");
-            } else if(suchkriterium.getFachId()!=null) { // wenn nur Fach eingegeben ist
+            } else if(suchkriterium.getFachId()!=null) { //
                 query.append("WHERE subject_id=?");
             }
             preparedStatement = conn.prepareStatement(query.toString());
@@ -92,7 +95,7 @@ public class DatenbankInterface
         return fragen;
     }
 
-    // Bilder aus der Datenbank laden (nicht fertig!)
+    // alle Bilder, die zugehöriges Thema aus der Datenbank laden
     public Bild bilderLaden(int subjectId) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
@@ -143,7 +146,7 @@ public class DatenbankInterface
         }
     }
 
-    // Fächer in die Datenbank eintragen
+    // Themen in die Datenbank eintragen
     public void speichern(Thema thema)
     {
         Connection conn = null;
@@ -181,6 +184,7 @@ public class DatenbankInterface
     }
 
     //nur das outline
+    // aktuelles Level aus der Datenbank laden
     public int getCurrentLevel(int subjectId)
     {
         Connection conn = null;
@@ -204,7 +208,7 @@ public class DatenbankInterface
         return 0;
     }
 
-    // Stadt des Spielers in der Datenbank aktualisieren
+    // Stand des Spielers in der Datenbank aktualisieren
     public void updatCurrentLevel (int subjectId, int level) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
