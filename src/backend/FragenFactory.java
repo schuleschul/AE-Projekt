@@ -21,7 +21,7 @@ public class FragenFactory
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
         ArrayList<Frage> alleFragen = datenbank.laden(suchkriterium);
-
+        Collections.shuffle(alleFragen);
         return alleFragen;
     }
 

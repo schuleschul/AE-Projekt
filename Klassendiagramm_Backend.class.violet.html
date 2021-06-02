@@ -43,7 +43,7 @@
         <text>- frage : String
 - richtigeAntwort : String
 - falscheAntworten : ArrayList&lt;String&gt;
-- fach : String
+- thema : String
 - schwierigkeit : enum
 - id : int
 - anzahlRichtigBeantwortet : int
@@ -51,9 +51,9 @@
 </text>
       </attributes>
       <methods id="11" justification="0" size="4" underlined="false">
-        <text>+ Frage(frage, richtigeAntwort, falscheAntworten, fach, 
+        <text>+ Frage(frage, richtigeAntwort, falscheAntworten, thema,
           schwierigkeit, id, anzahlRichtigBeantwortet)
-+ Frage(frage, richtigeAntwort, falscheAntworten, fach, 
++ Frage(frage, richtigeAntwort, falscheAntworten, thema,
          schwierigkeit)
 + getAlleAntworten() : ArrayList&lt;Frage&gt;</text>
       </methods>
@@ -77,7 +77,7 @@
 + laden() : ArrayList&lt;Frage&gt;
 + laden(Fach : String) : ArrayList&lt;Frage&gt;
 + speichern(frage, richtigeAntwort, falscheAntworten, 
-     fach, schwierigkeit)</text>
+     thema, schwierigkeit)</text>
       </methods>
     </ClassNode>
     <NoteNode id="19">
@@ -117,7 +117,7 @@
 + laden(FragenSuchkriterium) : ArrayList&lt;Frage&gt;
 + laden(FachSuchkriterium): ArrayList&lt;Fach&gt;
 + speichern(frage : Frage)
-+ speichern(fach: Fach)
++ speichern(thema: Fach)
 + update(id, anzahlRichtigBeantwortet )</text>
       </methods>
     </ClassNode>
@@ -202,7 +202,7 @@ zu können (Dependency Injection)</text>
         <text>- frage : String
 - richtigeAntwort : String
 - falscheAntwort : String
-- fach : String
+- thema : String
 - schwierigkeit : enum
 - id : int
 - anzahlRichtigBeantwortet : int</text>

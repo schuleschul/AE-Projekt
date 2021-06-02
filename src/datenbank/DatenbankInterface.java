@@ -13,11 +13,11 @@ public class DatenbankInterface
 {
     Frage.Schwierigkeit schwierigkeiten[] = Frage.Schwierigkeit.values();
 
-    // Fächer aus der Datenbank laden
-    public ArrayList<Fach> laden(FachSuchkriterium suchkriterium)
+    // alle Themengebiete aus der Datenbank laden
+    public ArrayList<Thema> laden(FachSuchkriterium suchkriterium)
     {
         Connection conn = null;
-        ArrayList<Fach> faecher = new ArrayList<>();
+        ArrayList<Thema> faecher = new ArrayList<>();
         try {
             conn = Datenbank.verbinden();
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM subjects");
@@ -25,7 +25,7 @@ public class DatenbankInterface
             while (resultSet.next()) {
                 int fachId = resultSet.getInt("subject_id");
                 String bezeichnung = resultSet.getString("subject_name");
-                faecher.add(new Fach(fachId, bezeichnung));
+                faecher.add(new Thema(fachId, bezeichnung));
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -41,7 +41,8 @@ public class DatenbankInterface
         return faecher;
     }
 
-    // Fragen aus der Datenbank laden
+    // alle Fragen aus der Datenbank laden
+    // alle Fragen nach Suchkriterien aus der Datenbank laden
     public ArrayList<Frage> laden(FragenSuchkriterium suchkriterium)
     {
         Connection conn = null;
@@ -50,19 +51,21 @@ public class DatenbankInterface
         try {
             conn = Datenbank.verbinden();
             StringBuilder query = new StringBuilder("SELECT * FROM questions");
-            // Suchkriterien, wenn Frageschwierigkeit und Fach eingegeben ist
-            if (suchkriterium.getSchwierigkeit()!=null && suchkriterium.getId()!=null) {
+
+            // Suchkriterien, wenn Frageschwierigkeit und Thema eingegeben ist
+            // oder wenn nur Thema eingegeben ist
+            if (suchkriterium.getSchwierigkeit()!=null && suchkriterium.getFachId()!=null) {
                 query.append(" WHERE subject_id=? AND question_level=?");
-            } else if(suchkriterium.getId()!=null) { // wenn nur Fach eingegeben ist
+            } else if(suchkriterium.getFachId()!=null) { //
                 query.append("WHERE subject_id=?");
             }
             preparedStatement = conn.prepareStatement(query.toString());
 
-            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getId()!=null) { 
-                preparedStatement.setInt(1, suchkriterium.getId());
+            if (suchkriterium.getSchwierigkeit() != null && suchkriterium.getFachId()!=null) {
+                preparedStatement.setInt(1, suchkriterium.getFachId());
                 preparedStatement.setInt( 2, suchkriterium.getSchwierigkeit().ordinal());
-            } else if(suchkriterium.getId()!=null){
-                preparedStatement.setInt(1, suchkriterium.getId());
+            } else if(suchkriterium.getFachId()!=null){
+                preparedStatement.setInt(1, suchkriterium.getFachId());
             }
             ResultSet resultSet = preparedStatement.executeQuery();
             //es wird bei jedem Aufruf eine Kopie des Arrays erstellt, weshalb es wesentlich effizienter ist, dieses Array einmalig zu cachen, statt in der folgenden Schleife jedes Mal neu zu initialisieren
@@ -92,7 +95,7 @@ public class DatenbankInterface
         return fragen;
     }
 
-    // Bilder aus der Datenbank laden (nicht fertig!)
+    // alle Bilder, die zugehöriges Thema aus der Datenbank laden
     public Bild bilderLaden(int subjectId) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
@@ -143,15 +146,15 @@ public class DatenbankInterface
         }
     }
 
-    // Fächer in die Datenbank eintragen
-    public void speichern(Fach fach)
+    // Themen in die Datenbank eintragen
+    public void speichern(Thema thema)
     {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {
             conn = Datenbank.verbinden();
             preparedStatement = conn.prepareStatement("INSERT INTO subjects (subject_name) VALUES (?)");
-            preparedStatement.setString(1, fach.getBezeichnung());
+            preparedStatement.setString(1, thema.getBezeichnung());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e){
@@ -170,6 +173,50 @@ public class DatenbankInterface
             preparedStatement = conn.prepareStatement("UPDATE questions set correct_answered = ? where question_id = ?");
             preparedStatement.setInt(1, anzahlRichtigBeantwortet);
             preparedStatement.setInt(2, id);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn, preparedStatement);
+        }
+    }
+
+    //nur das outline
+    // aktuelles Level aus der Datenbank laden
+    public int getCurrentLevel(int subjectId)
+    {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = Datenbank.verbinden();
+            preparedStatement = conn.prepareStatement("SELECT * FROM current_state where subject_id=?");
+            preparedStatement.setInt(1, subjectId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                // Integer subjectIdFromDb = resultSet.getInt("subject_id");
+                Integer currentLavel = resultSet.getInt("current_level");
+                return currentLavel;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn, preparedStatement);
+        }
+        return 0;
+    }
+
+    // Stand des Spielers in der Datenbank aktualisieren
+    public void updatCurrentLevel (int subjectId, int level) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            conn = Datenbank.verbinden();
+            preparedStatement = conn.prepareStatement("UPDATE current_state set current_level = ? where subject_id = ?");
+            preparedStatement.setInt(1, level);
+            preparedStatement.setInt(2, subjectId);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
