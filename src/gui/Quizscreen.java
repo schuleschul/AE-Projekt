@@ -184,7 +184,15 @@ public class Quizscreen extends JFrame {
                     //offenbar funktionieren newlines in jlabels nur mit html
                     infoScreen.setText("<html>Das Spiel ist vorbei!<br/><br/>" +
                             "Erreichter Score:" +
-                            gamemaster.getScore() + "/" + fragen.size() + "</html>");
+                            gamemaster.getScore() + "/" + fragen.size());
+
+                    if(gamemaster.maxLevelErhoehen(fragen.size()))
+                    {
+                        System.out.println("hier");
+                        infoScreen.setText(infoScreen.getText() + "<html><br/><br/>" +
+                                "Eine neue Schwierigkeit für " + gamemaster.getThema().getBezeichnung() + " wurde freigeschaltet!<br/>" +
+                                "Neue Schwierigkeit: " + gamemaster.getMaxSchwierigkeit() + "</html>");
+                    }
                 }
             }
         }

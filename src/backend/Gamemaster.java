@@ -30,6 +30,24 @@ public class Gamemaster
         }
     }
 
+    //returned, ob das Level erhöht wurde
+    public boolean maxLevelErhoehen(int anzahlFragen)
+    {
+        System.out.println(anzahlFragen);
+        System.out.println(score);
+        if( score == anzahlFragen)
+        {
+            //level ist noch nicht max
+            if(maxSchwierigkeit.ordinal() < Frage.Schwierigkeit.schwer.ordinal())
+            {
+                datenbankInterface.updatCurrentLevel(thema.getId(), (maxSchwierigkeit.ordinal()+1));
+                loadMaxSchwierigkeit();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Frage> getFragen()
     {
         if(null == schwierigkeit || null == thema)

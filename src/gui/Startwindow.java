@@ -90,12 +90,14 @@ public class Startwindow extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
             Quizscreen quizscreen = new Quizscreen(gamemaster);
-            //TODO die setter sind nur für Testzwecke hier. Sobald die Auswahlscreens fertig sind, diese Zeilen entfernen!
 
             DatenbankInterface datenbankInterface = new DatenbankInterface();
             ThemenFactory themenfactory = new ThemenFactory(datenbankInterface);
-            gamemaster.setSchwierigkeit(Frage.Schwierigkeit.mittel);
+            //TODO die setter sind nur für Testzwecke hier. Sobald die Auswahlscreens fertig sind, diese Zeilen entfernen!
             gamemaster.setThema(themenfactory.laden().get(0));
+            gamemaster.loadMaxSchwierigkeit();
+            gamemaster.setSchwierigkeit(gamemaster.getMaxSchwierigkeit());
+
 
             Startwindow.this.dispose();
             quizscreen.anzeigen(gamemaster.getFragen());
