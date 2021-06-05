@@ -125,7 +125,7 @@ public class Quizscreen extends JFrame {
         antwortC.setIcon(antwortNeutralIcon);
         antwortD.setIcon(antwortNeutralIcon);
         this.frage = frage;
-        infoScreen.setText();
+        infoScreen.setText("");
         fragenfeld.setText(frage.getFrage());
         ArrayList<String> alleAntworten = frage.getAlleAntworten();
         antwortA.setText(alleAntworten.get(0));
