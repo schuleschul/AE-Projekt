@@ -49,7 +49,9 @@ public class Quizscreen extends JFrame {
         infoScreen.setIcon(infoScreenIcon);
         infoScreen.setHorizontalTextPosition(JLabel.CENTER);
         infoScreen.setVerticalTextPosition(JLabel.CENTER);
+        infoScreen.addMouseListener(new InfoScreenListener());
         cp.add(infoScreen);
+
         fragenfeld.setBounds(25, 266, 578, 68);
         fragenfeld.setIcon(fragenfeldIcon);
         fragenfeld.setHorizontalTextPosition(JLabel.CENTER);
@@ -57,7 +59,7 @@ public class Quizscreen extends JFrame {
         cp.add(fragenfeld);
 
         antwortA.setBounds(24, 328, 292, 68);
-        antwortA.setIcon(antwortAIcon);
+        antwortA.setIcon(antwortNeutralIcon);
         antwortA.setHorizontalTextPosition(JLabel.CENTER);
         antwortA.setVerticalTextPosition(JLabel.CENTER);
         antwortA.setIconTextGap(4);
@@ -68,7 +70,7 @@ public class Quizscreen extends JFrame {
         cp.add(antwortA);
 
         antwortB.setBounds(311, 328, 292, 68);
-        antwortB.setIcon(antwortBIcon);
+        antwortB.setIcon(antwortNeutralIcon);
         antwortB.setHorizontalTextPosition(JLabel.CENTER);
         antwortB.setVerticalTextPosition(JLabel.CENTER);
         antwortB.setIconTextGap(4);
@@ -79,7 +81,7 @@ public class Quizscreen extends JFrame {
         cp.add(antwortB);
 
         antwortC.setBounds(24, 390, 292, 68);
-        antwortC.setIcon(antwortCIcon);
+        antwortC.setIcon(antwortNeutralIcon);
         antwortC.setHorizontalTextPosition(JLabel.CENTER);
         antwortC.setVerticalTextPosition(JLabel.CENTER);
         antwortC.setBorderPainted(false);
@@ -89,7 +91,7 @@ public class Quizscreen extends JFrame {
         cp.add(antwortC);
 
         antwortD.setBounds(311, 390, 292, 68);
-        antwortD.setIcon(antwortDIcon);
+        antwortD.setIcon(antwortNeutralIcon);
         antwortD.setHorizontalTextPosition(JLabel.CENTER);
         antwortD.setVerticalTextPosition(JLabel.CENTER);
         antwortD.setBorderPainted(false);
@@ -118,6 +120,10 @@ public class Quizscreen extends JFrame {
     private void anzeigen(Frage frage)
     {
         istEingeloggt = false;
+        antwortA.setIcon(antwortNeutralIcon);
+        antwortB.setIcon(antwortNeutralIcon);
+        antwortC.setIcon(antwortNeutralIcon);
+        antwortD.setIcon(antwortNeutralIcon);
         this.frage = frage;
         infoScreen.setText("Infoscreen");
         fragenfeld.setText(frage.getFrage());
@@ -160,7 +166,7 @@ public class Quizscreen extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            //TODO das löst nur das klicken am Ende des Spiels, zwischen den Fragen werden weitere events immer noch verarbeitet..
+            //Ersetzen des timers durch Klick hat auch das Problem mit den unerlaubten Buttonklicks gelöst
             if(!istEingeloggt)
             {
                 istEingeloggt = true;
@@ -179,6 +185,19 @@ public class Quizscreen extends JFrame {
                 {
                     System.out.println("Schade eigentlich.");
                 }
+
+            }
+        }
+    }
+
+    private class InfoScreenListener implements MouseListener
+    {
+
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+            if(istEingeloggt)
+            {
                 System.out.println("Index: " + akutelleFrageIndex);
                 if(akutelleFrageIndex < (fragen.size() -1))
                 {
@@ -192,6 +211,30 @@ public class Quizscreen extends JFrame {
                 }
             }
         }
+
+        @Override
+        public void mousePressed(MouseEvent e)
+        {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e)
+        {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e)
+        {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e)
+        {
+
+        }
     }
 
     //zeigt an, ob die Antwort richtig war oder nicht
@@ -201,33 +244,39 @@ public class Quizscreen extends JFrame {
         {
             //button grün machen
             System.out.println("RICHTIG!!!");
+            button.setIcon(antwortRichtigIcon);
         }
         else
         {
+            button.setIcon(antwortFalschIcon);
             //button rot machen
             System.out.println("Antwort ist falsch!");
             if(antwortA.getText().equals(frage.getRichtigeAntwort()))
             {
                 //grün machen
                 System.out.println("AntwortA ist richtig");
+                antwortA.setIcon(antwortRichtigIcon);
             }
             else if(antwortB.getText().equals(frage.getRichtigeAntwort()))
             {
                 //grün machen
                 System.out.println("AntwortB ist richtig");
+                antwortB.setIcon(antwortRichtigIcon);
             }
             else if(antwortC.getText().equals(frage.getRichtigeAntwort()))
             {
                 //grün machen
                 System.out.println("AntwortC ist richtig");
+                antwortC.setIcon(antwortRichtigIcon);
             }
             else if(antwortD.getText().equals(frage.getRichtigeAntwort()))
             {
                 //grün machen
                 System.out.println("AntwortD ist richtig");
+                antwortD.setIcon(antwortRichtigIcon);
             }
         }
-        TimeUnit.SECONDS.sleep(5);
+        //TimeUnit.SECONDS.sleep(5);
     }
 
 
@@ -237,7 +286,7 @@ public class Quizscreen extends JFrame {
     private JLabel fragenfeld = new JLabel();
     private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("../images/frage_textfeld.png"));
     private JButton antwortA = new JButton();
-    private ImageIcon antwortAIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
+    private ImageIcon antwortNeutralIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortB = new JButton();
     private ImageIcon antwortBIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortC = new JButton();
@@ -246,6 +295,9 @@ public class Quizscreen extends JFrame {
     private ImageIcon antwortDIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JLabel rahmen_bg_layer = new JLabel();
     private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+
+    private ImageIcon antwortFalschIcon = new ImageIcon(getClass().getResource("../images/falsche_antwort_bg.png"));
+    private ImageIcon antwortRichtigIcon = new ImageIcon(getClass().getResource("../images/richtige_antwort_bg.png"));
     // Ende Attribute
 
 
