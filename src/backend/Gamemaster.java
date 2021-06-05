@@ -58,7 +58,7 @@ public class Gamemaster
         return maxSchwierigkeit;
     }
 
-    public Frage.Schwierigkeit getSchwierigkiet()
+    public Frage.Schwierigkeit getSchwierigkeit()
     {
         return schwierigkeit;
     }

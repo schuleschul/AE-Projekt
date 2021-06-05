@@ -125,7 +125,7 @@ public class Quizscreen extends JFrame {
         antwortC.setIcon(antwortNeutralIcon);
         antwortD.setIcon(antwortNeutralIcon);
         this.frage = frage;
-        infoScreen.setText("Infoscreen");
+        infoScreen.setText();
         fragenfeld.setText(frage.getFrage());
         ArrayList<String> alleAntworten = frage.getAlleAntworten();
         antwortA.setText(alleAntworten.get(0));
@@ -151,9 +151,7 @@ public class Quizscreen extends JFrame {
                 istEingeloggt = true;
                 JButton button = (JButton) e.getSource();
                 antwort = button.getText();
-                System.out.println(antwort);
                 boolean istRichtig = antwortValidierer.istRichtig(frage, antwort);
-                System.out.println(istRichtig);
                 gamemaster.takeAction(frage, istRichtig);
 
                 try
@@ -162,7 +160,7 @@ public class Quizscreen extends JFrame {
                 }
                 catch(InterruptedException exception)
                 {
-                    System.out.println("Schade eigentlich.");
+                    infoScreen.setText("Eine Exception ist aufgetreten! Schade eigentlich.");
                 }
                 infoScreen.setText("Für die nächste Frage bitte hier klicken.");
             }
@@ -177,16 +175,16 @@ public class Quizscreen extends JFrame {
         {
             if(istEingeloggt)
             {
-                System.out.println("Index: " + akutelleFrageIndex);
                 if(akutelleFrageIndex < (fragen.size() -1))
                 {
                     anzeigen(fragen.get(++akutelleFrageIndex));
                 }
                 else
                 {
-                    //hier goodbye screen einblenden, der ua den Score anzeigt
-                    System.out.println("Level vorbei!");
-                    System.out.println(gamemaster.getScore());
+                    //offenbar funktionieren newlines in jlabels nur mit html
+                    infoScreen.setText("<html>Das Spiel ist vorbei!<br/><br/>" +
+                            "Erreichter Score:" +
+                            gamemaster.getScore() + "/" + fragen.size() + "</html>");
                 }
             }
         }
@@ -206,37 +204,26 @@ public class Quizscreen extends JFrame {
     {
         if(istRichtig)
         {
-            //button grün machen
-            System.out.println("RICHTIG!!!");
             button.setIcon(antwortRichtigIcon);
         }
         else
         {
             button.setIcon(antwortFalschIcon);
-            //button rot machen
-            System.out.println("Antwort ist falsch!");
+
             if(antwortA.getText().equals(frage.getRichtigeAntwort()))
             {
-                //grün machen
-                System.out.println("AntwortA ist richtig");
                 antwortA.setIcon(antwortRichtigIcon);
             }
             else if(antwortB.getText().equals(frage.getRichtigeAntwort()))
             {
-                //grün machen
-                System.out.println("AntwortB ist richtig");
                 antwortB.setIcon(antwortRichtigIcon);
             }
             else if(antwortC.getText().equals(frage.getRichtigeAntwort()))
             {
-                //grün machen
-                System.out.println("AntwortC ist richtig");
                 antwortC.setIcon(antwortRichtigIcon);
             }
             else if(antwortD.getText().equals(frage.getRichtigeAntwort()))
             {
-                //grün machen
-                System.out.println("AntwortD ist richtig");
                 antwortD.setIcon(antwortRichtigIcon);
             }
         }
