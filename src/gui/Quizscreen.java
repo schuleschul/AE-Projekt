@@ -257,13 +257,10 @@ public class Quizscreen extends JFrame {
     private JLabel fragenfeld = new JLabel();
     private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("../images/frage_textfeld.png"));
     private JButton antwortA = new JButton();
-    private ImageIcon antwortNeutralIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortB = new JButton();
-    private ImageIcon antwortBIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortC = new JButton();
-    private ImageIcon antwortCIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JButton antwortD = new JButton();
-    private ImageIcon antwortDIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
+    private ImageIcon antwortNeutralIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
     private JLabel rahmen_bg_layer = new JLabel();
     private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
 
