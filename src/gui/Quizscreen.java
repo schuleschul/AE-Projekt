@@ -138,27 +138,6 @@ public class Quizscreen extends JFrame {
     }
     // Anfang Methoden
 
-    public static void main(String[] args) {
-        DatenbankInterface datenbankInterface = new DatenbankInterface();
-        AntwortValidierer antwortValidierer = new AntwortValidierer();
-        Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
-        Quizscreen quizscreen = new Quizscreen(gamemaster);
-
-        ArrayList<String> liste = new ArrayList<String>();
-        liste.add("1");
-        liste.add("2");
-        liste.add("3");
-
-        Frage.Schwierigkeit schwierigkeit = Frage.Schwierigkeit.values()[1];
-        Frage frage = new Frage("hallo?", "ja", liste,  schwierigkeit, 2);
-        ArrayList<Frage> fragen = new ArrayList<Frage>();
-        fragen.add(frage);
-        fragen.add(new Frage("hallo?", "nein", liste,  schwierigkeit, 2));
-        fragen.add(new Frage("hallo?", "doch", liste,  schwierigkeit, 2));
-        fragen.add(new Frage("hallo?", "ohh", liste,  schwierigkeit, 2));
-        quizscreen.anzeigen(fragen);
-    } // end of main
-
 
 
     private class ButtonListener implements ActionListener
@@ -185,7 +164,7 @@ public class Quizscreen extends JFrame {
                 {
                     System.out.println("Schade eigentlich.");
                 }
-
+                infoScreen.setText("Für die nächste Frage bitte hier klicken.");
             }
         }
     }
@@ -213,28 +192,13 @@ public class Quizscreen extends JFrame {
         }
 
         @Override
-        public void mousePressed(MouseEvent e)
-        {
-
-        }
-
+        public void mousePressed(MouseEvent e) { }
         @Override
-        public void mouseReleased(MouseEvent e)
-        {
-
-        }
-
+        public void mouseReleased(MouseEvent e) { }
         @Override
-        public void mouseEntered(MouseEvent e)
-        {
-
-        }
-
+        public void mouseEntered(MouseEvent e) { }
         @Override
-        public void mouseExited(MouseEvent e)
-        {
-
-        }
+        public void mouseExited(MouseEvent e) { }
     }
 
     //zeigt an, ob die Antwort richtig war oder nicht
@@ -276,8 +240,28 @@ public class Quizscreen extends JFrame {
                 antwortD.setIcon(antwortRichtigIcon);
             }
         }
-        //TimeUnit.SECONDS.sleep(5);
     }
+
+    public static void main(String[] args) {
+        DatenbankInterface datenbankInterface = new DatenbankInterface();
+        AntwortValidierer antwortValidierer = new AntwortValidierer();
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
+        Quizscreen quizscreen = new Quizscreen(gamemaster);
+
+        ArrayList<String> liste = new ArrayList<String>();
+        liste.add("1");
+        liste.add("2");
+        liste.add("3");
+
+        Frage.Schwierigkeit schwierigkeit = Frage.Schwierigkeit.values()[1];
+        Frage frage = new Frage("hallo?", "ja", liste,  schwierigkeit, 2);
+        ArrayList<Frage> fragen = new ArrayList<Frage>();
+        fragen.add(frage);
+        fragen.add(new Frage("hallo?", "nein", liste,  schwierigkeit, 2));
+        fragen.add(new Frage("hallo?", "doch", liste,  schwierigkeit, 2));
+        fragen.add(new Frage("hallo?", "ohh", liste,  schwierigkeit, 2));
+        quizscreen.anzeigen(fragen);
+    } // end of main
 
 
     // Anfang Attribute
