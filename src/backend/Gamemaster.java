@@ -52,9 +52,17 @@ public class Gamemaster
         return score;
     }
 
+    public void loadMaxSchwierigkeit()
+    {
+        if(null == thema)
+        {
+            throw new IllegalStateException("Das Thema wurde noch nicht festgelegt!");
+        }
+        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
+    }
+
     public Frage.Schwierigkeit getMaxSchwierigkeit()
     {
-        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
         return maxSchwierigkeit;
     }
 
