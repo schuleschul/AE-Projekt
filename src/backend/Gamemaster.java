@@ -11,6 +11,7 @@ public class Gamemaster
         this.datenbankInterface = datenbankInterface;
         this.fragenFactory = fragenFactory;
         this.themenFactory = themenFactory;
+        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
     }
 
 
@@ -54,7 +55,6 @@ public class Gamemaster
 
     public Frage.Schwierigkeit getMaxSchwierigkeit()
     {
-        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
         return maxSchwierigkeit;
     }
 
