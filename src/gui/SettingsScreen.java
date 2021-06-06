@@ -1,5 +1,6 @@
 package gui;
 
+import backend.Frage;
 import backend.Gamemaster;
 
 import java.awt.*;
@@ -98,8 +99,9 @@ public class SettingsScreen extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            //TODO Frageneditor anzeigen
-//            setVisible(false);
+            Quiz_Frageneditor frageneditor = new Quiz_Frageneditor(gamemaster);
+            frageneditor.anzeigen(gamemaster.getThemenFactory().laden());
+            SettingsScreen.this.dispose();
         }
     }
 

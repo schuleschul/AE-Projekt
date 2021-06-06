@@ -20,10 +20,10 @@ import javax.swing.event.*;
 public class Quiz_Frageneditor extends JFrame {
 
 
-    public Quiz_Frageneditor(FragenFactory fragenFactory) {
+    public Quiz_Frageneditor(Gamemaster gamemaster) {
         // Frame-Initialisierung
         super();
-        this.fragenFactory = fragenFactory;
+        this.gamemaster = gamemaster;
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
@@ -160,8 +160,11 @@ public class Quiz_Frageneditor extends JFrame {
             falscheAntworten.add(tfFalscheAntwort2.getText());
             falscheAntworten.add(tfFalscheAntwort3.getText());
 
-            fragenFactory.speichern(frage, richtigeAntwort, falscheAntworten, gewaehltesThema.getId(), gewaehlteSchwierigkeit);
+            gamemaster.getFragenFactory().speichern(frage, richtigeAntwort, falscheAntworten, gewaehltesThema.getId(), gewaehlteSchwierigkeit);
 
+            SettingsScreen settingsScreen = new SettingsScreen(gamemaster);
+            Quiz_Frageneditor.this.dispose();
+            settingsScreen.setVisible(true);
 
         }
     }
@@ -170,8 +173,7 @@ public class Quiz_Frageneditor extends JFrame {
 
     // Anfang Attribute
 
-    ThemenFactory themenFactory;
-    FragenFactory fragenFactory;
+    Gamemaster gamemaster;
     ArrayList<Thema> alleThemen;
 
     private JLabel rahmen_bg_layer = new JLabel();
@@ -203,7 +205,7 @@ public class Quiz_Frageneditor extends JFrame {
 //        AntwortValidierer antwortValidierer = new AntwortValidierer();
         Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
 
-        Quiz_Frageneditor frageneditor = new Quiz_Frageneditor(new FragenFactory(datenbankInterface) );
+        Quiz_Frageneditor frageneditor = new Quiz_Frageneditor(gamemaster);
         frageneditor.anzeigen(themenFactory.laden());
     } // end of main
     // Ende Methoden
