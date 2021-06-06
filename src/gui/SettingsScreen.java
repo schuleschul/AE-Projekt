@@ -40,12 +40,12 @@ public class SettingsScreen extends JFrame {
         cp.add(rahmen_bg_layer);
 
 
-        fragenEditorButton.setBounds(176, 264, 311, 67);
+        fragenEditorButton.setBounds(176, 192, 311, 68);
         fragenEditorButton.setText("");
         fragenEditorButton.setMargin(new Insets(2, 2, 2, 2));
         fragenEditorButton.addActionListener(new FragenEditorListener());
-        fragenEditorButton.setIcon(option2Icon);
-        fragenEditorButton.setPressedIcon(option2PressedIcon);
+        fragenEditorButton.setIcon(button_option1Icon);
+        fragenEditorButton.setPressedIcon(button_option1PressedIcon);
         fragenEditorButton.setBorderPainted(false);
         fragenEditorButton.setContentAreaFilled(false);
         fragenEditorButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -66,12 +66,12 @@ public class SettingsScreen extends JFrame {
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
         cp.add(jLabel1);
-        schwierigkeitswahlButton.setBounds(176, 192, 311, 68);
+        schwierigkeitswahlButton.setBounds(176, 264, 311, 67);
         schwierigkeitswahlButton.setText("");
         schwierigkeitswahlButton.setMargin(new Insets(2, 2, 2, 2));
         schwierigkeitswahlButton.addActionListener(new SchwierigkeitswahlListener());
-        schwierigkeitswahlButton.setIcon(button_option1Icon);
-        schwierigkeitswahlButton.setPressedIcon(button_option1PressedIcon);
+        schwierigkeitswahlButton.setIcon(option2Icon);
+//        schwierigkeitswahlButton.setPressedIcon(button_option1PressedIcon);
         schwierigkeitswahlButton.setBorderPainted(false);
         schwierigkeitswahlButton.setContentAreaFilled(false);
         cp.add(schwierigkeitswahlButton);
@@ -120,12 +120,12 @@ public class SettingsScreen extends JFrame {
     private JLabel jLabel1 = new JLabel();
     private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("../images/einstellung_titel.png"));
 
-    private JButton schwierigkeitswahlButton = new JButton();
+    private JButton fragenEditorButton = new JButton();
     private ImageIcon button_option1PressedIcon = new ImageIcon(getClass().getResource("../images/button_option1_pushed.png"));
     private ImageIcon button_option1Icon = new ImageIcon(getClass().getResource("../images/button_option1.png"));
-    private JButton fragenEditorButton = new JButton();
+    private JButton schwierigkeitswahlButton = new JButton();
     private ImageIcon option2PressedIcon = new ImageIcon(getClass().getResource("../images/button_option2_pushed.png"));
-    private ImageIcon option2Icon = new ImageIcon(getClass().getResource("../images/button_option2.png"));
+    private ImageIcon option2Icon = new ImageIcon(getClass().getResource("../images/nichtverf_button_optionen.png"));
     private JButton startmenuButton = new JButton();
     private ImageIcon button_zurueckPressedIcon = new ImageIcon(getClass().getResource("../images/Startmenue_button_optionen_pushed.png"));
     private ImageIcon button_zurueckIcon = new ImageIcon(getClass().getResource("../images/Startmenue_button_optionen.png"));
