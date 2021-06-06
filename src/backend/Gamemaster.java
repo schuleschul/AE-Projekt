@@ -33,8 +33,6 @@ public class Gamemaster
     //returned, ob das Level erhöht wurde
     public boolean maxLevelErhoehen(int anzahlFragen)
     {
-        System.out.println(anzahlFragen);
-        System.out.println(score);
         if( score == anzahlFragen)
         {
             //level höchstmöglich aber noch nicht max
