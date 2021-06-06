@@ -95,7 +95,6 @@ public class Startwindow extends JFrame {
             ThemenFactory themenfactory = new ThemenFactory(datenbankInterface);
             //TODO die setter sind nur für Testzwecke hier. Sobald die Auswahlscreens fertig sind, diese Zeilen entfernen!
             gamemaster.setThema(themenfactory.laden().get(0));
-            gamemaster.loadMaxSchwierigkeit();
             gamemaster.setSchwierigkeit(gamemaster.getMaxSchwierigkeit());
 
 

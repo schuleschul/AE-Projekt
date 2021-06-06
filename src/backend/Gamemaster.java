@@ -70,17 +70,13 @@ public class Gamemaster
         return score;
     }
 
-    public void loadMaxSchwierigkeit()
-    {
-        if(null == thema)
-        {
-            throw new IllegalStateException("Das Thema wurde noch nicht festgelegt!");
-        }
-        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
-    }
 
     public Frage.Schwierigkeit getMaxSchwierigkeit()
     {
+        if(null == maxSchwierigkeit)
+        {
+            loadMaxSchwierigkeit();
+        }
         return maxSchwierigkeit;
     }
 
@@ -117,6 +113,15 @@ public class Gamemaster
     public ThemenFactory getThemenFactory()
     {
         return themenFactory;
+    }
+
+    private void loadMaxSchwierigkeit()
+    {
+        if(null == thema)
+        {
+            throw new IllegalStateException("Das Thema wurde noch nicht festgelegt!");
+        }
+        maxSchwierigkeit = Frage.Schwierigkeit.values()[datenbankInterface.getCurrentLevel(thema.getId())];
     }
 
     private final DatenbankInterface datenbankInterface;
