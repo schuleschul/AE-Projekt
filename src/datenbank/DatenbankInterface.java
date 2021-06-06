@@ -133,9 +133,9 @@ public class DatenbankInterface
             preparedStatement.setString(2, frage.getFrage());
             preparedStatement.setInt(3, frage.getSchwierigkeit().ordinal());
             preparedStatement.setString(4, frage.getRichtigeAntwort());
-            for(String falscheAntwort : frage.getFalscheAntworten())
+            for(int i = 0; i<3; ++i)
             {
-                preparedStatement.setString(5, falscheAntwort);
+                preparedStatement.setString((i+5), frage.getFalscheAntworten().get(i));
             }
             preparedStatement.executeUpdate();
             preparedStatement.close();
