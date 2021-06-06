@@ -120,6 +120,7 @@ public class Quizscreen extends JFrame {
     private void anzeigen(Frage frage)
     {
         istEingeloggt = false;
+        istInfoFenstergeklickt = false;
         antwortA.setIcon(antwortNeutralIcon);
         antwortB.setIcon(antwortNeutralIcon);
         antwortC.setIcon(antwortNeutralIcon);
@@ -173,6 +174,14 @@ public class Quizscreen extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e)
         {
+            if(istInfoFenstergeklickt)  //wird nur am Ende einer Runde auf true gesetzt
+            {
+                Gamemaster newGameMaster = new Gamemaster(gamemaster.getDatenbankInterface(), gamemaster.getFragenFactory(), gamemaster.getThemenFactory());        //resetting all settings for a new game
+                Startwindow startwindow = new Startwindow(newGameMaster);
+                Quizscreen.this.dispose();
+                startwindow.setVisible(true);
+                return;
+            }
             if(istEingeloggt)
             {
                 if(akutelleFrageIndex < (fragen.size() -1))
@@ -193,6 +202,7 @@ public class Quizscreen extends JFrame {
                                 "Eine neue Schwierigkeit für " + gamemaster.getThema().getBezeichnung() + " wurde freigeschaltet!<br/>" +
                                 "Neue Schwierigkeit: " + gamemaster.getMaxSchwierigkeit() + "</html>");
                     }
+                    istInfoFenstergeklickt = true;
                 }
             }
         }
@@ -283,6 +293,8 @@ public class Quizscreen extends JFrame {
     private ArrayList<Frage> fragen;
     private int akutelleFrageIndex;
     private boolean istEingeloggt;  //damti nicht ständig neue Buttonevents ausgelöst werden, wird überpürt, ob eine Antwort schon eingeloggt wurde
+    //damit das InfoFenster am Ende einer Runde nicht zwei Mal geklickt wird und damit mehrfach den Enddialog triggert(ua mit ggf. Stufenerhöhung), wird beim zweiten Mal, das Startwindow erneut aufgerufen
+    private boolean istInfoFenstergeklickt = false;
     private Gamemaster gamemaster;
     private AntwortValidierer antwortValidierer;
     private ButtonListener buttonListener;
