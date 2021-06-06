@@ -69,10 +69,13 @@ public class Schwierigkeitsgrad extends JFrame {
 
   public void anzeigen()
   {
-    for (Frage.Schwierigkeit schwierigkeit : Frage.Schwierigkeit.values())
+    for(Frage.Schwierigkeit schwierigkeit : Frage.Schwierigkeit.values())
     {
       jSchwierigkeitsgradModel.addElement(schwierigkeit.toString());
+      if(gamemaster.getMaxSchwierigkeit() == schwierigkeit) break;
     }
+    jSchwierigkeitsgradModel.setSelectedItem(jSchwierigkeitsgradModel.getElementAt( (jSchwierigkeitsgradModel.getSize() -1) ));   //machts schöner
+
     setVisible(true);
   }
 
