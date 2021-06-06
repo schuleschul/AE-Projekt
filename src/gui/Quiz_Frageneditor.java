@@ -173,8 +173,8 @@ public class Quiz_Frageneditor extends JFrame {
 
     // Anfang Attribute
 
-    Gamemaster gamemaster;
-    ArrayList<Thema> alleThemen;
+    private Gamemaster gamemaster;
+    private ArrayList<Thema> alleThemen;
 
     private JLabel rahmen_bg_layer = new JLabel();
     private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
