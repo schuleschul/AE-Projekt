@@ -100,7 +100,7 @@ public class Schwierigkeitsgrad extends JFrame {
   private Gamemaster gamemaster;
 
   private JLabel rahmen_bg_layer = new JLabel();
-  private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+  private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
   private JLabel lSchwierigkeitsgrad = new JLabel();
   private JButton bAbsenden = new JButton();
 

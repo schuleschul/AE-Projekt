@@ -120,21 +120,21 @@ public class SettingsScreen extends JFrame {
 
     // Anfang Attribute
     private JLabel jLabel1 = new JLabel();
-    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("../images/einstellung_titel.png"));
+    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("images/einstellung_titel.png"));
 
     private JButton fragenEditorButton = new JButton();
-    private ImageIcon button_option1PressedIcon = new ImageIcon(getClass().getResource("../images/button_option1_pushed.png"));
-    private ImageIcon button_option1Icon = new ImageIcon(getClass().getResource("../images/button_option1.png"));
+    private ImageIcon button_option1PressedIcon = new ImageIcon(getClass().getResource("images/button_option1_pushed.png"));
+    private ImageIcon button_option1Icon = new ImageIcon(getClass().getResource("images/button_option1.png"));
     private JButton schwierigkeitswahlButton = new JButton();
-    private ImageIcon option2PressedIcon = new ImageIcon(getClass().getResource("../images/button_option2_pushed.png"));
-    private ImageIcon option2Icon = new ImageIcon(getClass().getResource("../images/nichtverf_button_optionen.png"));
+    private ImageIcon option2PressedIcon = new ImageIcon(getClass().getResource("images/button_option2_pushed.png"));
+    private ImageIcon option2Icon = new ImageIcon(getClass().getResource("images/nichtverf_button_optionen.png"));
     private JButton startmenuButton = new JButton();
-    private ImageIcon button_zurueckPressedIcon = new ImageIcon(getClass().getResource("../images/Startmenue_button_optionen_pushed.png"));
-    private ImageIcon button_zurueckIcon = new ImageIcon(getClass().getResource("../images/Startmenue_button_optionen.png"));
+    private ImageIcon button_zurueckPressedIcon = new ImageIcon(getClass().getResource("images/Startmenue_button_optionen_pushed.png"));
+    private ImageIcon button_zurueckIcon = new ImageIcon(getClass().getResource("images/Startmenue_button_optionen.png"));
 
 
     private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
 
     private Gamemaster gamemaster;
     // Ende Attribute

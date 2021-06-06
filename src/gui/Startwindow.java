@@ -110,14 +110,14 @@ public class Startwindow extends JFrame {
 
     // Anfang Attribute
     private JButton quizstart = new JButton();
-    private ImageIcon quizstartPressedIcon = new ImageIcon(getClass().getResource("../images/button_quizstart_pushed.png"));
-    private ImageIcon quizstartIcon = new ImageIcon(getClass().getResource("../images/button_quizstart.png"));
+    private ImageIcon quizstartPressedIcon = new ImageIcon(getClass().getResource("images/button_quizstart_pushed.png"));
+    private ImageIcon quizstartIcon = new ImageIcon(getClass().getResource("images/button_quizstart.png"));
     private JLabel jLabel1 = new JLabel();
-    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("../images/sb_Logo_big.png"));
+    private ImageIcon jLabel1Icon = new ImageIcon(getClass().getResource("images/sb_Logo_big.png"));
     private JButton settingsButton = new JButton();
-    private ImageIcon settingsIcon = new ImageIcon(getClass().getResource("../images/settings_solo_small.png"));
+    private ImageIcon settingsIcon = new ImageIcon(getClass().getResource("images/settings_solo_small.png"));
     private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
     // Ende Attribute
 
     private Gamemaster gamemaster;

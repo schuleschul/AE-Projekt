@@ -196,7 +196,6 @@ public class Quizscreen extends JFrame {
 
                     if(gamemaster.maxLevelErhoehen(fragen.size()))
                     {
-                        System.out.println("hier");
                         infoScreen.setText(infoScreen.getText() + "<html><br/><br/>" +
                                 "Eine neue Schwierigkeit für " + gamemaster.getThema().getBezeichnung() + " wurde freigeschaltet!<br/>" +
                                 "Neue Schwierigkeit: " + gamemaster.getMaxSchwierigkeit() + "</html>");
@@ -270,19 +269,19 @@ public class Quizscreen extends JFrame {
 
     // Anfang Attribute
     private JLabel infoScreen = new JLabel();
-    private ImageIcon infoScreenIcon = new ImageIcon(getClass().getResource("../images/quiz_infoscreen_empty.png"));
+    private ImageIcon infoScreenIcon = new ImageIcon(getClass().getResource("images/quiz_infoscreen_empty.png"));
     private JLabel fragenfeld = new JLabel();
-    private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("../images/frage_textfeld.png"));
+    private ImageIcon fragenfeldIcon = new ImageIcon(getClass().getResource("images/frage_textfeld.png"));
     private JButton antwortA = new JButton();
     private JButton antwortB = new JButton();
     private JButton antwortC = new JButton();
     private JButton antwortD = new JButton();
-    private ImageIcon antwortNeutralIcon = new ImageIcon(getClass().getResource("../images/antwort_textfeld.png"));
+    private ImageIcon antwortNeutralIcon = new ImageIcon(getClass().getResource("images/antwort_textfeld.png"));
     private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
 
-    private ImageIcon antwortFalschIcon = new ImageIcon(getClass().getResource("../images/falsche_antwort_bg.png"));
-    private ImageIcon antwortRichtigIcon = new ImageIcon(getClass().getResource("../images/richtige_antwort_bg.png"));
+    private ImageIcon antwortFalschIcon = new ImageIcon(getClass().getResource("images/falsche_antwort_bg.png"));
+    private ImageIcon antwortRichtigIcon = new ImageIcon(getClass().getResource("images/richtige_antwort_bg.png"));
     // Ende Attribute
 
 

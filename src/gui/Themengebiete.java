@@ -84,7 +84,7 @@ public class Themengebiete extends JFrame {
   private ArrayList<Thema> alleThemen;
 
   private JLabel rahmen_bg_layer = new JLabel();
-  private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+  private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
   private JLabel lThemengebiete = new JLabel();
   private JButton bAbsenden = new JButton();
 

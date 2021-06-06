@@ -177,7 +177,7 @@ public class Quiz_Frageneditor extends JFrame {
     private ArrayList<Thema> alleThemen;
 
     private JLabel rahmen_bg_layer = new JLabel();
-    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
+    private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("images/rahmen_bg.png"));
     private JComboBox<String> jThemenauswahl = new JComboBox<String>();
     private DefaultComboBoxModel<String> jThemenauswahlModel = new DefaultComboBoxModel<String>();
     private JLabel lFrageneditor = new JLabel();
