@@ -104,6 +104,21 @@ public class Gamemaster
         this.thema = thema;
     }
 
+    public DatenbankInterface getDatenbankInterface()
+    {
+        return datenbankInterface;
+    }
+
+    public FragenFactory getFragenFactory()
+    {
+        return fragenFactory;
+    }
+
+    public ThemenFactory getThemenFactory()
+    {
+        return themenFactory;
+    }
+
     private final DatenbankInterface datenbankInterface;
     private final FragenFactory fragenFactory;
     private final ThemenFactory themenFactory;
