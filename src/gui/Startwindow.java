@@ -109,8 +109,9 @@ public class Startwindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            Startwindow.this.setVisible(false);
-            SettingsScreen settings = new SettingsScreen(Startwindow.this.gamemaster, Startwindow.this);
+//            Startwindow.this.setVisible(false);
+            SettingsScreen settings = new SettingsScreen(Startwindow.this.gamemaster);
+            Startwindow.this.dispose(); //wenn das Settingsfenster über den Fenster-Schließen-Button geschlossen werden würde, würde das Startwindow andernfalls weiter bestehen
             settings.setVisible(true);
         }
     }

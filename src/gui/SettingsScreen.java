@@ -14,11 +14,10 @@ import javax.swing.*;
 public class SettingsScreen extends JFrame {
 
 
-    public SettingsScreen(Gamemaster gamemaster, Startwindow startwindow) {
+    public SettingsScreen(Gamemaster gamemaster) {
         // Frame-Initialisierung
         super();
         this.gamemaster = gamemaster;
-        this.startwindow = startwindow;
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
@@ -109,8 +108,9 @@ public class SettingsScreen extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            SettingsScreen.this.dispose();      //zerstört das Fenster
+            Startwindow startwindow = new Startwindow(gamemaster);
             startwindow.setVisible(true);
+            SettingsScreen.this.dispose();      //zerstört das Fenster
         }
     }
 
@@ -134,7 +134,6 @@ public class SettingsScreen extends JFrame {
     private JLabel rahmen_bg_layer = new JLabel();
     private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
 
-    private Startwindow startwindow;
     private Gamemaster gamemaster;
     // Ende Attribute
 } // end of class Settings
