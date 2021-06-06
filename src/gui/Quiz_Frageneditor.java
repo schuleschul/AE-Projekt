@@ -20,9 +20,11 @@ import javax.swing.event.*;
 public class Quiz_Frageneditor extends JFrame {
 
 
-    public Quiz_Frageneditor(Gamemaster gamemaster) {
+    public Quiz_Frageneditor(FragenFactory fragenFactory) {
         // Frame-Initialisierung
         super();
+        this.fragenFactory = fragenFactory;
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 640;
         int frameHeight = 550;
@@ -48,12 +50,9 @@ public class Quiz_Frageneditor extends JFrame {
         bAbsenden.setBounds(208, 408, 201, 49);
         bAbsenden.setText("absenden");
         bAbsenden.setMargin(new Insets(2, 2, 2, 2));
-        bAbsenden.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                bAbsenden_ActionPerformed(evt);
-            }
-        });
+        bAbsenden.addActionListener(new ButtonListener());
         cp.add(bAbsenden);
+
         lFrageneditor.setBounds(248, 32, 125, 48);
         lFrageneditor.setText("Frageneditor");
         lFrageneditor.setFont(new Font("Arial Narrow", Font.BOLD, 24));
@@ -103,10 +102,10 @@ public class Quiz_Frageneditor extends JFrame {
 
     } // end of public quiz_Frageneditor
 
-    public void anzeigen(ThemenFactory themenFactory)
+    public void anzeigen(ArrayList<Thema> alleThemen)
     {
-        ArrayList<Thema> alleThemen = themenFactory.laden();
-        for (Thema thema : alleThemen)
+        this.alleThemen = alleThemen;
+        for (Thema thema : this.alleThemen)
         {
             jThemenauswahlModel.addElement(thema.getBezeichnung());
         }
@@ -114,32 +113,66 @@ public class Quiz_Frageneditor extends JFrame {
         {
             jSchwierigkeitsgradModel.addElement(schwierigkeit.toString());
         }
-        
+
         setVisible(true);
     }
 
     // Anfang Methoden
 
-    public static void main(String[] args)
+
+
+    private class ButtonListener implements ActionListener
     {
-        DatenbankInterface datenbankInterface = new DatenbankInterface();
-//        AntwortValidierer antwortValidierer = new AntwortValidierer();
-        Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            JTextField[] textfelder = {tfHierbittedieFrageeintragen, tfHierbittedieAntworteintragen, tfFalscheAntwort1, tfFalscheAntwort2, tfFalscheAntwort3};
+            for (JTextField textfeld : textfelder)
+            {
+                if(textfeld.getText().isEmpty())
+                {
+                    //TODO Fehlermeldung wäre schön, ist jetzt aber nicht da... sollte man aber drauf kommen, dass man alle Felder befüllen muss
+                    return;
+                }
+            }
 
-        Quiz_Frageneditor frageneditor = new Quiz_Frageneditor(gamemaster);
-        frageneditor.anzeigen(new ThemenFactory(datenbankInterface));
-    } // end of main
+            Thema gewaehltesThema = null;
+            Frage.Schwierigkeit gewaehlteSchwierigkeit = null;
+            for (Thema thema : alleThemen)
+            {
+                if(thema.getBezeichnung().equals(jThemenauswahlModel.getSelectedItem()))
+                {
+                    gewaehltesThema = thema;
+                }
+            }
+            for(Frage.Schwierigkeit schwierigkeit : Frage.Schwierigkeit.values())
+            {
+                if(schwierigkeit.toString().equals(jSchwierigkeitsgrad.getSelectedItem()))
+                {
+                    gewaehlteSchwierigkeit = schwierigkeit;
+                }
+            }
+
+            String frage = tfHierbittedieFrageeintragen.getText();
+            String richtigeAntwort = tfHierbittedieAntworteintragen.getText();
+            ArrayList<String> falscheAntworten = new ArrayList<>();
+            falscheAntworten.add(tfFalscheAntwort1.getText());
+            falscheAntworten.add(tfFalscheAntwort2.getText());
+            falscheAntworten.add(tfFalscheAntwort3.getText());
+
+            fragenFactory.speichern(frage, richtigeAntwort, falscheAntworten, gewaehltesThema.getId(), gewaehlteSchwierigkeit);
 
 
+        }
+    }
 
-    public void bAbsenden_ActionPerformed(ActionEvent evt) {
-        // Button absenden...
 
-    } // Ende bAbsenden_ActionPerformed
 
     // Anfang Attribute
 
-    Gamemaster gamemaster;
+    ThemenFactory themenFactory;
+    FragenFactory fragenFactory;
+    ArrayList<Thema> alleThemen;
 
     private JLabel rahmen_bg_layer = new JLabel();
     private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
@@ -162,5 +195,16 @@ public class Quiz_Frageneditor extends JFrame {
     private JLabel lFalscheAntwort3 = new JLabel();
     // Ende Attribute
 
+
+    public static void main(String[] args)
+    {
+        DatenbankInterface datenbankInterface = new DatenbankInterface();
+        ThemenFactory themenFactory = new ThemenFactory(datenbankInterface);
+//        AntwortValidierer antwortValidierer = new AntwortValidierer();
+        Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
+
+        Quiz_Frageneditor frageneditor = new Quiz_Frageneditor(new FragenFactory(datenbankInterface) );
+        frageneditor.anzeigen(themenFactory.laden());
+    } // end of main
     // Ende Methoden
 } // end of class quiz_Frageneditor
