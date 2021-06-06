@@ -100,8 +100,8 @@ public class SettingsScreen extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
             Quiz_Frageneditor frageneditor = new Quiz_Frageneditor(gamemaster);
-            frageneditor.anzeigen(gamemaster.getThemenFactory().laden());
             SettingsScreen.this.dispose();
+            frageneditor.anzeigen(gamemaster.getThemenFactory().laden());
         }
     }
 
@@ -111,8 +111,8 @@ public class SettingsScreen extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
             Startwindow startwindow = new Startwindow(gamemaster);
-            startwindow.setVisible(true);
             SettingsScreen.this.dispose();      //zerstört das Fenster
+            startwindow.setVisible(true);
         }
     }
 

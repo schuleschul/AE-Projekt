@@ -104,8 +104,8 @@ public class Themengebiete extends JFrame {
         {
           gamemaster.setThema(thema);
           Schwierigkeitsgrad schwierigkeitsgrad = new Schwierigkeitsgrad(gamemaster);
-          schwierigkeitsgrad.anzeigen();
           Themengebiete.this.dispose();
+          schwierigkeitsgrad.anzeigen();
           return;
         }
       }
