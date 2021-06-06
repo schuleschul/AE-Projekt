@@ -6,7 +6,6 @@ import backend.Gamemaster;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  *
@@ -91,7 +90,7 @@ public class Schwierigkeitsgrad extends JFrame {
           gamemaster.setSchwierigkeit(schwierigkeit);
           Quizscreen quizscreen = new Quizscreen(gamemaster);
           Schwierigkeitsgrad.this.dispose();
-          quizscreen.anzeigen(gamemaster.getFragen());
+          quizscreen.anzeigen();
         }
       }
     }

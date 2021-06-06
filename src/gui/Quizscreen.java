@@ -6,7 +6,6 @@ import datenbank.DatenbankInterface;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 
@@ -105,13 +104,13 @@ public class Quizscreen extends JFrame {
 
     } // end of public Quizscreen
 
-    public void anzeigen(ArrayList<Frage> fragen)
+    public void anzeigen()
     {
+        fragen = gamemaster.getFragen();
         if(fragen.size() == 0)
         {
             throw new IllegalArgumentException("es wurden keine Fragen übergeben!");
         }
-        this.fragen = fragen;
         akutelleFrageIndex = 0;
         anzeigen(fragen.get(akutelleFrageIndex));
     }
@@ -265,7 +264,7 @@ public class Quizscreen extends JFrame {
         fragen.add(new Frage("hallo?", "nein", liste,  schwierigkeit, 2));
         fragen.add(new Frage("hallo?", "doch", liste,  schwierigkeit, 2));
         fragen.add(new Frage("hallo?", "ohh", liste,  schwierigkeit, 2));
-        quizscreen.anzeigen(fragen);
+        quizscreen.anzeigen();
     } // end of main
 
 
