@@ -37,8 +37,8 @@ public class Gamemaster
         System.out.println(score);
         if( score == anzahlFragen)
         {
-            //level ist noch nicht max
-            if(maxSchwierigkeit.ordinal() < Frage.Schwierigkeit.schwer.ordinal())
+            //level höchstmöglich aber noch nicht max
+            if(maxSchwierigkeit == schwierigkeit && maxSchwierigkeit.ordinal() < Frage.Schwierigkeit.schwer.ordinal())
             {
                 datenbankInterface.updatCurrentLevel(thema.getId(), (maxSchwierigkeit.ordinal()+1));
                 loadMaxSchwierigkeit();
