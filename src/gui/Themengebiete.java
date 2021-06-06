@@ -1,5 +1,11 @@
 package gui;
 
+import backend.FragenFactory;
+import backend.Gamemaster;
+import backend.Thema;
+import backend.ThemenFactory;
+import datenbank.DatenbankInterface;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,9 +22,10 @@ import javax.swing.event.*;
 public class Themengebiete extends JFrame {
 
   
-  public Themengebiete() { 
+  public Themengebiete(Gamemaster gamemaster) {
     // Frame-Initialisierung
     super();
+    this.gamemaster = gamemaster;
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 640; 
     int frameHeight = 550;
@@ -38,7 +45,6 @@ public class Themengebiete extends JFrame {
     rahmen_bg_layer.setIcon(rahmen_bg_layerIcon);
     rahmen_bg_layer.setVisible(true);
     cp.add(rahmen_bg_layer);
-    
 
 
     bAbsenden.setBounds(208, 408, 201, 49);
@@ -59,22 +65,24 @@ public class Themengebiete extends JFrame {
 
     jThemen.setModel(jThemenModel);
     jThemen.setBounds(184, 224, 249, 41);
-    jThemenModel.addElement("leicht");
-    jThemenModel.addElement("mittel");
-    jThemenModel.addElement("schwer");
     cp.add(jThemen);
 
-    setVisible(true);
+
   } // end of public Themengebiete
   
   // Anfang Methoden
 
   public void anzeigen()
   {
-
+    for (Thema thema : gamemaster.getThemenFactory().laden())
+    {
+      jThemenModel.addElement(thema.getBezeichnung());
+    }
+    setVisible(true);
   }
 
   // Anfang Attribute
+  Gamemaster gamemaster;
 
   private JLabel rahmen_bg_layer = new JLabel();
   private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
@@ -84,7 +92,7 @@ public class Themengebiete extends JFrame {
   private JComboBox<String> jThemen = new JComboBox<String>();
   private DefaultComboBoxModel<String> jThemenModel = new DefaultComboBoxModel<String>();
 
-  
+
 
   public void bAbsenden_ActionPerformed(ActionEvent evt) {
     // Button absenden...
@@ -93,8 +101,13 @@ public class Themengebiete extends JFrame {
   } // Ende bAbsenden_ActionPerformed
 
 
-  public static void main(String[] args) {
-    new Themengebiete();
+  public static void main(String[] args)
+  {
+    DatenbankInterface datenbankInterface = new DatenbankInterface();
+    ThemenFactory themenFactory = new ThemenFactory(datenbankInterface);
+    Gamemaster gamemaster = new Gamemaster(datenbankInterface, new FragenFactory(datenbankInterface), new ThemenFactory(datenbankInterface));
+    Themengebiete themengebiete = new Themengebiete(gamemaster);
+    themengebiete.anzeigen();
   } // end of main
 
   // Ende Methoden
