@@ -8,6 +8,7 @@ import datenbank.DatenbankInterface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -50,11 +51,7 @@ public class Themengebiete extends JFrame {
     bAbsenden.setBounds(208, 408, 201, 49);
     bAbsenden.setText("absenden");
     bAbsenden.setMargin(new Insets(2, 2, 2, 2));
-    bAbsenden.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bAbsenden_ActionPerformed(evt);
-      }
-    });
+    bAbsenden.addActionListener(new ButtonListener());
     cp.add(bAbsenden);
     lThemengebiete.setBounds(248, 32, 149, 48);
     lThemengebiete.setText("Themengebiete");
@@ -74,7 +71,8 @@ public class Themengebiete extends JFrame {
 
   public void anzeigen()
   {
-    for (Thema thema : gamemaster.getThemenFactory().laden())
+    alleThemen = gamemaster.getThemenFactory().laden();
+    for (Thema thema : alleThemen)
     {
       jThemenModel.addElement(thema.getBezeichnung());
     }
@@ -83,6 +81,7 @@ public class Themengebiete extends JFrame {
 
   // Anfang Attribute
   Gamemaster gamemaster;
+  ArrayList<Thema> alleThemen;
 
   private JLabel rahmen_bg_layer = new JLabel();
   private ImageIcon rahmen_bg_layerIcon = new ImageIcon(getClass().getResource("../images/rahmen_bg.png"));
@@ -94,11 +93,24 @@ public class Themengebiete extends JFrame {
 
 
 
-  public void bAbsenden_ActionPerformed(ActionEvent evt) {
-    // Button absenden...
-
-
-  } // Ende bAbsenden_ActionPerformed
+  private class ButtonListener implements ActionListener
+  {
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      for (Thema thema : alleThemen)
+      {
+        if(thema.getBezeichnung().equals(jThemenModel.getSelectedItem()))
+        {
+          gamemaster.setThema(thema);
+          Schwierigkeitsgrad schwierigkeitsgrad = new Schwierigkeitsgrad(gamemaster);
+          schwierigkeitsgrad.anzeigen();
+          Themengebiete.this.dispose();
+          return;
+        }
+      }
+    }
+  }
 
 
   public static void main(String[] args)
