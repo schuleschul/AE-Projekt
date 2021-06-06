@@ -89,17 +89,9 @@ public class Startwindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            Quizscreen quizscreen = new Quizscreen(gamemaster);
-
-            DatenbankInterface datenbankInterface = new DatenbankInterface();
-            ThemenFactory themenfactory = new ThemenFactory(datenbankInterface);
-            //TODO die setter sind nur für Testzwecke hier. Sobald die Auswahlscreens fertig sind, diese Zeilen entfernen!
-            gamemaster.setThema(themenfactory.laden().get(0));
-            gamemaster.setSchwierigkeit(gamemaster.getMaxSchwierigkeit());
-
-
+            Themengebiete themengebiete = new Themengebiete(gamemaster);
             Startwindow.this.dispose();
-            quizscreen.anzeigen(gamemaster.getFragen());
+            themengebiete.anzeigen();
         }
     }
 
